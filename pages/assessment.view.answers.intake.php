@@ -27,7 +27,7 @@ $resultItems = getAnswers($formAnswersID, 'intake');
                 <div class="row">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/pages/idp.list.php">IDPs</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo($_SERVER["HTTP_REFERER"]); ?>">IDP Assessment History</a></li>
+                        <li class="breadcrumb-item"><a href="/pages/idp.assessment.history.php?id=<?php echo($_SESSION['idpID']); ?>">IDP Assessment History</a></li>
                         <li class="breadcrumb-item active">View Intake Answers</li>
                     </ol>
                 </div>

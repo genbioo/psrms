@@ -23,7 +23,7 @@ $questionsResult = getAssessmentQuestions('Tool',$toolIDs);
 
         <div id="wrapper">
 
-            <div id="page-wrapper">
+            <div id="exam-wrapper">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <form action="/includes/actions/assessment.process.answers.tool.php?id=<?php echo($idpID); ?>" method="post">

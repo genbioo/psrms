@@ -122,6 +122,27 @@ function getBarangays()
     return $barangays;
 }
 
+function getFullAddress($barangayID='', $idpID='')
+{
+    $db_handle = new DBController();
+    $result = [];
+    if(isset($idpID) && ($idpID != '' || $idpID != 0))
+    {
+        $db_handle->prepareStatement("SELECT CONCAT((CASE WHEN idp.SpecificAddress = '' THEN '' ELSE CONCAT(idp.SpecificAddress, ', ') END), barangay.BarangayName, ', ', city_mun.City_Mun_Name, ', ', province.ProvinceName) AS Address FROM barangay LEFT JOIN idp ON barangay.BarangayID = idp.Origin_Barangay LEFT JOIN city_mun ON barangay.City_CityID = city_mun.City_Mun_ID LEFT JOIN province ON city_mun.PROVINCE_ProvinceID = province.ProvinceID WHERE barangay.BarangayID = :barangay AND idp.IDP_ID = :idpID");
+        $db_handle->bindVar(':barangay', $barangayID, PDO::PARAM_INT,0);
+        $db_handle->bindVar(':idpID', $idpID, PDO::PARAM_INT,0);
+        
+        $result = $db_handle->runFetch();
+    } else {
+        $db_handle->prepareStatement("SELECT CONCAT(barangay.BarangayName, ', ', city_mun.City_Mun_Name, ', ', province.ProvinceName) AS Address FROM barangay LEFT JOIN city_mun ON barangay.City_CityID = city_mun.City_Mun_ID LEFT JOIN province ON city_mun.PROVINCE_ProvinceID = province.ProvinceID WHERE barangay.BarangayID = :barangay");
+        $db_handle->bindVar(':barangay', $barangayID, PDO::PARAM_INT,0);
+        
+        $result = $db_handle->runFetch();
+    }
+    
+    return $result;
+}
+
 function getEvacuationCenters()
 {
     $db_handle = new DBController();
@@ -129,6 +150,17 @@ function getEvacuationCenters()
     $evac_centers = $db_handle->runFetch();
 
     return $evac_centers;
+}
+
+function getEvacDetails($evacID = '')
+{
+    $db_handle = new DBController();
+    $db_handle->prepareStatement("SELECT evacuation_centers.EvacuationCentersID, CONCAT(evacuation_centers.EvacName, ': ' ,barangay.BarangayName, ', ', city_mun.City_Mun_Name, ', ', province.ProvinceName) AS EvacAndAddress FROM evacuation_centers LEFT JOIN barangay ON evacuation_centers.EvacAddress = barangay.BarangayID LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID LEFT JOIN province ON province.ProvinceID = city_mun.PROVINCE_ProvinceID WHERE evacuation_centers.EvacuationCentersID = :evacID");
+    $db_handle->bindVar(':evacID', $evacID, PDO::PARAM_INT,0);
+    
+    $result = $db_handle->runFetch();
+    
+    return $result;
 }
 
 function getAgencies()

@@ -30,8 +30,8 @@ if($_GET['from'] == 'intake')
     <body>
 
         <div id="wrapper">
-            <?php includeNav(); ?>
-            <div id="page-wrapper">
+
+            <div id="exam-wrapper">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="well">
