@@ -266,7 +266,7 @@ if($editing === "trans") {
                                             } else {
                                             ?>
                                             <input type="hidden" name="oldItem" value="<?php echo(($old)) ?>">
-                                            <textarea class="form-control mdltxt" rows="5" name="textInput"><?php echo($old) ?></textarea>
+                                            <textarea class="form-control mdltxt" rows="5" name="textInput"><?php echo(PREG_REPLACE('#<br\s*?/?>#i', "", $old)) ?></textarea>
                                             <input type="hidden" name="itemID" value="<?php echo($id); ?>">
                                             <?php
                                             }
@@ -318,20 +318,20 @@ if($editing === "trans") {
                                         <th style="border-top: 0px solid black"><h6>Remarks</h6></th>
                                     </tr>
                                     <?php
-                            foreach($editHistory as $entry) {
+                                    foreach($editHistory as $entry) {
                                     ?>
                                     <tr>
                                         <td><h6>
                                             <?php
-                                $phpdate = strtotime( $entry["LastEdit"] );
-                                echo date( 'M d, Y <\b\r> h:i a', $phpdate );
+                                            $phpdate = strtotime( $entry["LastEdit"] );
+                                            echo date( 'M d, Y <\b\r> h:i a', $phpdate );
                                             ?>
                                             </h6></td>
                                         <td><h6><?php echo($entry["Name"]); ?></h6></td>
                                         <td><h6><?php echo($entry["Remark"]); ?></h6></td>
                                     </tr>
                                     <?php
-                            }
+                                    }
                                     ?>
                                 </table>
                                 <?php } else { ?>

@@ -254,8 +254,6 @@ if(!empty($questions)) {
             </div>
             <!-- /#page-wrapper -->
 
-        </div>
-
         <!-- container for edit title/instructions/questions modal -->
         <div id="modal-container">
         </div>

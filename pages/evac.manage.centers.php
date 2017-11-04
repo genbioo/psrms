@@ -36,13 +36,12 @@ includeCore();
                                 <table width="100%" class="table table-bordered table-hover" id="table-evac-list">
                                     <thead>
                                         <tr>
-                                            <th>Evacuation Center No.</th>
                                             <th>Evacuation Center Name</th>
                                             <th>Evacuation Center Address</th>
-                                            <th>Evacuation Center Type</th>
                                             <th>Evacuation Center Manager</th>
                                             <th>Evacuation Center Contact</th>
                                             <th>Evacuation Center Specific Address</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -73,7 +72,7 @@ includeCore();
                 },
                 "columnDefs":[
                     {
-                        "targets": [5],
+                        "targets": [],
                         "orderable":false
                     },
                 ]

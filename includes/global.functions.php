@@ -29,9 +29,15 @@ function includeCommonJS()
     include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/include.common.js.php");
 }
 
-function includeDataTables()
+function includeDataTables($mode = '')
 {
-    include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/include.datatables.php");
+    if($mode == 'advanced')
+    {
+        include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/include.datatables.advanced.php");
+    } else
+    {
+        include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/include.datatables.php");
+    }
 }
 
 function includeNav()
@@ -74,35 +80,110 @@ function getIDPExtensiveDetails($id) {
     $db_handle = new DBController();
     $db_handle->prepareStatement(
         "SELECT idp.IDP_ID,
-                 CONCAT(Lname, ', ', Fname, ' ', Mname) AS IDPName, idp.Age,
-                 idp.Gender, idp.Education, idp.MaritalStatus,
-                 idp.PhoneNum, Origin_Address, EvacTable.EvacName, Evac_Address,
-                 EvacTable.EvacType, idp.Email, idp.Occupation, 
+                 CONCAT(Lname, ', ', Fname, ' ', Mname) AS IDPName, idp.Lname, idp.Fname, idp.Mname, idp.Bdate, idp.Age,
+                 idp.Gender, idp.Education, idp.MaritalStatus, idp.Religion, idp.Ethnicity,
+                 idp.PhoneNum, idp.Origin_Barangay, idp.EvacuationCenters_EvacuationCentersID AS EvacID, idp.Email, idp.Occupation, 
                  idp.Remarks, idp.SpecificAddress FROM idp
-        LEFT JOIN
-        evacuation_centers ON evacuation_centers.EvacuationCentersID = idp.EvacuationCenters_EvacuationCentersID
-        LEFT JOIN
-            (Select idp.IDP_ID, idp.Origin_Barangay,
-                    CONCAT(barangay.BarangayName, ', ', city_mun.City_Mun_Name, ', ', province.ProvinceName) AS Origin_Address
-                    FROM barangay
-            LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID
-            LEFT JOIN province ON city_mun.PROVINCE_ProvinceID = province.ProvinceID
-            LEFT JOIN idp ON idp.Origin_Barangay = barangay.BarangayID
-            WHERE barangay.BarangayID = idp.Origin_Barangay)
-        AS OriginTable
-        ON OriginTable.IDP_ID = idp.IDP_ID
-        LEFT JOIN
-            (Select idp.IDP_ID, idp.EvacuationCenters_EvacuationCentersID, evacuation_centers.EvacType, evacuation_centers.EvacName, evacuation_centers.EvacAddress AS EvacAddressID,
-                CONCAT(barangay.BarangayName, ', ', city_mun.City_Mun_Name, ', ', province.ProvinceName) as Evac_Address
-             FROM idp LEFT JOIN evacuation_centers ON idp.EvacuationCenters_EvacuationCentersID = evacuation_centers.EvacuationCentersID LEFT JOIN barangay ON barangay.BarangayID = evacuation_centers.EvacAddress LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID LEFT JOIN province ON city_mun.PROVINCE_ProvinceID = province.ProvinceID where barangay.BarangayID = evacuation_centers.EvacAddress)
-        AS EvacTable
-        ON EvacTable.IDP_ID = idp.IDP_ID
         WHERE idp.IDP_ID = :idpID");
 
     $db_handle->bindVar(':idpID', $id, PDO::PARAM_INT, 0);
     $idpInfo = $db_handle->runFetch();
 
     return $idpInfo;
+}
+
+function calculateAge($birthDate)
+{
+    $today = date("Y-m-d");
+    $diff = date_diff(date_create($birthDate), date_create($today));
+    
+    return $diff->format('%y');
+}
+
+function translateDate($date = '', $time = '')
+{
+    if($time == 'time')
+    {
+        $translatedDate = date('M d, Y <\b\r> h:i a', strtotime($date));
+    } else
+    {
+        $translatedDate = date('M d, Y', strtotime($date));
+    }
+    
+    if(!empty($date))
+    {
+        return $translatedDate;
+    } else
+    {
+        return 'unspecified';
+    }
+}
+
+function getEducationalAttainment($eaCode = '')
+{
+    $educationalAttainment = array(
+        1 => 'Grade 1',
+        2 => 'Grade 2',
+        3 => 'Grade 3',
+        4 => 'Grade 4',
+        5 => 'Grade 5',
+        6 => 'Grade 6',
+        7 => 'Elementary Graduate',
+        8 => 'Grade 7 / 1st Year Highschool',
+        9 => 'Grade 8 / 2nd Year Highschool',
+        10 => 'Grade 9 / 3rd Year Highschool',
+        11 => 'Grade 10 / 4th Year Highschool',
+        12 => 'Grade 11',
+        13 => 'Grade 12',
+        14 => 'High School Graduate',
+        15 => '1st Year College',
+        16 => '2nd Year College',
+        17 => '3rd Year College',
+        18 => '4th Year College',
+        19 => 'College Graduate'
+    );
+    
+    if($eaCode != '')
+    {
+        return $educationalAttainment[$eaCode];
+    } else
+    {
+        return 'unspecified';
+    }
+}
+
+function getMaritalStatus($msCode = '')
+{
+    $maritalStatus = array(
+        1 => 'Single',
+        2 => 'Married',
+        3 => 'Annulled',
+        4 => 'Widowed'
+    );
+    
+    if($msCode != '')
+    {
+        return $maritalStatus[$msCode];
+    } else
+    {
+        return 'unspecified';
+    }
+}
+
+function getGender($genderID = '')
+{
+    $gender = array(
+        1 => 'Male',
+        2 => 'Female'
+    );
+    
+    if($genderID != '')
+    {
+        return $gender[$genderID];
+    } else
+    {
+        return 'unspecified';
+    }
 }
 
 function getProvinces()
@@ -150,7 +231,24 @@ function getFullAddress($barangayID='', $idpID='')
         $result = $db_handle->runFetch();
     }
     
-    return $result;
+    if($result[0]['Address'] != '')
+    {
+        return $result[0]['Address'];
+    }
+    else
+    {
+        return 'unspecified';
+    }
+}
+
+function getAddressIDs($barangayID)
+{
+    $db_handle = new DBController();
+    $db_handle->prepareStatement("SELECT barangay.BarangayID, city_mun.City_Mun_ID, province.ProvinceID FROM barangay LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID LEFT JOIN province ON province.ProvinceID = city_mun.PROVINCE_ProvinceID WHERE barangay.BarangayID = :barangayID");
+    $db_handle->bindVar(':barangayID', $barangayID, PDO::PARAM_INT, 0);
+    $addressIDs = $db_handle->runFetch();
+
+    return $addressIDs;
 }
 
 function getEvacuationCenters()
@@ -170,7 +268,7 @@ function getEvacDetails($evacID = '')
     
     $result = $db_handle->runFetch();
     
-    return $result;
+    return $result[0]['EvacAndAddress'];
 }
 
 function getAgencies()
@@ -425,6 +523,20 @@ function getIntakeID($idpID = '', $ag = '')
 }
 #---- db fetch functions end ----
 
+
+#---- db insert functions ----
+function updateEditHistory($formID, $message)
+{
+    $db_handle = new DBController();
+    
+    $db_handle->prepareStatement("INSERT INTO `edit_history`(`EditHistoryID`, `USER_UserID`, `LastEdit`, `FORM_FormID`, `QUESTIONS_QuestionsID`, `INTAKE_IntakeID`, `Remark`) VALUES (NULL, :usr, now(), :formID, NULL, NULL, :edit)");
+    $db_handle->bindVar(':usr', $_SESSION['UserID'], PDO::PARAM_INT, 0);
+    $db_handle->bindVar(':formID', $formID, PDO::PARAM_INT, 0);
+    $db_handle->bindVar(':edit', $message, PDO::PARAM_STR, 0);
+    $db_handle->runUpdate();
+}
+#---- db insert functions end ----
+
 #---- assessment functions ----
 function getList($data, $listType = 'IDP', $listTarget = '') 
 {
@@ -450,8 +562,8 @@ function getList($data, $listType = 'IDP', $listTarget = '')
     if($listType === 'IDP')
     {
         $query .= "SELECT
-                        CONCAT(Lname, ', ', Fname, ' ', Mname) AS IDPName, IDP_ID,
-                        (CASE WHEN (Gender = 1) THEN 'Male' ELSE 'Female' END) AS Gender,
+                        CONCAT(Lname, ', ', Fname, ' ', Mname) AS IDPName, IDP_ID, Bdate,
+                        (CASE WHEN (Gender = 1) THEN 'Male' WHEN (Gender = 2) THEN 'Female' ELSE 'unspecified' END) AS Gender,
                         Age, COALESCE(MIN(j.INTAKE_ANSWERS_ID), 0) AS intake_answersID,
                         (CASE WHEN (Age > 18) THEN 2 ELSE 1 END) AS age_group 
                 FROM `idp` i 
@@ -767,8 +879,14 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 $subArray[] = $row["IDPName"];
                 $subArray[] = $row["IDP_ID"];
                 $subArray[] = $row["Gender"];
-                $subArray[] = $row["Age"];
-
+                $age = calculateAge($row["Bdate"]);
+                if($age != 0)
+                {
+                    $subArray[] = $age;
+                } else
+                {
+                    $subArray[] = "Unspecified Birth Date";
+                }
                 if($row['intake_answersID'] == 0) {
                     $subArray[] = 
                         '<a class="btn btn-info btn-sm btn-block" href="idp.assessment.history.php?id='.$row["IDP_ID"].'">
@@ -817,13 +935,15 @@ function getList($data, $listType = 'IDP', $listTarget = '')
             {
                 $recordsFiltered = get_total_all_records('Evac', 0);
                 $subArray["DT_RowId"] = $row["EvacuationCentersID"];
-                $subArray[] = $row["EvacuationCentersID"];
                 $subArray[] = $row["EvacName"];
-                $subArray[] = $row["EvacAddress"];
-                $subArray[] = $row["EvacType"];
+                $subArray[] = getFullAddress($row["EvacAddress"]);
                 $subArray[] = $row["EvacManager"];
                 $subArray[] = $row["EvacManagerContact"];
                 $subArray[] = $row["SpecificAddress"];
+                
+                $subArray[] = '<a class="btn btn-info btn-xs center-block" href="evac.edit.php?evacid='.$row["EvacuationCentersID"].'">
+                        <i class="fa fa-pencil-square-o"></i>Edit Info
+                     </a>';
             }
             else if($listType === 'Assessment_taken')
             {

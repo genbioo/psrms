@@ -13,7 +13,7 @@ $_SESSION['disaster_id'] = 1;
 
         <?php
         includeHead("PSRMS - IDP Assessment");
-        includeDataTables();
+        includeDataTables('advanced');
         ?>
 
     </head>
@@ -98,6 +98,10 @@ $_SESSION['disaster_id'] = 1;
                         "targets": [4],
                         "orderable":false
                     },
+                ],
+                "dom": 'Blfrtip',
+                "buttons": [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             } );
         } );

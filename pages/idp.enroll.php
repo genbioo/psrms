@@ -4,6 +4,8 @@ includeCore();
 
 $_SESSION['loc'] = $_SERVER['PHP_SELF'];
 
+$idpDetails = getIDPExtensiveDetails($id);
+
 $provinces = getProvinces();
 $cities = getCities();
 $barangays = getBarangays();
@@ -81,7 +83,6 @@ $evac_centers = getEvacuationCenters();
 
                                                 <div class="form-group col-md-6">
                                                     <input type="date" name='Bdate' class="form-control">
-
                                                 </div>
 
                                                 <div class="form-group col-md-4">
@@ -133,6 +134,7 @@ $evac_centers = getEvacuationCenters();
                                                         <div class="col-md-6">
 
                                                             <select class="form-control" name='education' id="elementary1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="1">Grade 1</option>
                                                                 <option value="2">Grade 2</option>
                                                                 <option value="3">Grade 3</option>
@@ -143,6 +145,7 @@ $evac_centers = getEvacuationCenters();
                                                             </select>
 
                                                             <select class="form-control" name='education' id="highschool1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="8">Grade 7</option>
                                                                 <option value="9">Grade 8</option>
                                                                 <option value="10">Grade 9</option>
@@ -153,6 +156,7 @@ $evac_centers = getEvacuationCenters();
                                                             </select>
 
                                                             <select class="form-control" name='education' id="college1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="15">1st year</option>
                                                                 <option value="16">2nd year</option>
                                                                 <option value="17">3rd year</option>

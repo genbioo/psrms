@@ -16,7 +16,7 @@ $intakeCount = getIntakeCount($id);
 
         <?php 
         includeHead("PSRMS - ".$idp[0]['IDPName']." Assessment History"); 
-        includeDataTables();
+        includeDataTables('advanced');
         ?>
         <?php
         if($_SESSION['account_type'] == '77')
@@ -52,13 +52,10 @@ $intakeCount = getIntakeCount($id);
                             {
                             ?>
                             <sup>
-                                <button type="button" class="btn btn-success btn-xs" onClick ="load_modal()">
+                                <a type="button" class="btn btn-success btn-xs" href="idp.details.php?id=<?php echo($id); ?>">
                                     <i class="fa fa-info-circle"></i>
-                                </button>
+                                </a>
                             </sup>
-                            <!-- this button is for a workaround in triggering the edit modal -->
-                            <!-- without this workaround, button needs to be clicked twice before modal shows -->
-                            <button class="btn btn-primary" id="dtailTrigger" data-toggle="modal" data-target="#myModal" style="display:none"></button>
                             <?php
                             }
                             ?>
@@ -150,9 +147,6 @@ $intakeCount = getIntakeCount($id);
                 </div>
             </div>
         </div>
-        
-        <div id="modal-container">
-        </div>
 
         <?php includeCommonJS(); ?>
 
@@ -223,11 +217,6 @@ $intakeCount = getIntakeCount($id);
         <?php
         }
         ?>
-        window.load_modal = function(clicked_id) {
-            $("#modal-container").load("/includes/fragments/idp.modal.details.php?id=<?php echo($id); ?>", function() {
-                $('#dtailTrigger').click();
-            });
-        }
     </script>
 
 </html>
