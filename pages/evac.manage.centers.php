@@ -1,7 +1,8 @@
 <?php
 include("../initialize.php");
 includeCore();
-
+$Barangays = getBarangays();
+$Cities = getCities();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,11 @@ includeCore();
                 <!-- /.row -->
                 <div class="row">
                     <div class="header">
-                        <h3 class="title">&nbsp;Evacuation Centers</h3>
+                        <h3 class="title">&nbsp;Evacuation Centers <a href="/pages/forms.add.evacuation.php" class="btn btn-success btn-xs">Add Evacuation Center</a></h3>
+                    
+                    </div>
+                    <div class="panel-body">
+                        
                     </div>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
