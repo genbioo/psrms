@@ -39,6 +39,16 @@ function includeNav()
     include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/global.navigation.php");
 }
 
+function includeDashboardFunctions()
+{
+     include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/dashboard.functions.php");
+}
+
+function includeMapFunctions()
+{
+     include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/maps.functions.php");
+}
+
 function includeHead($pageTitle)
 {
     include($_SERVER['DOCUMENT_ROOT'].ROOT."includes/include.common.head.php");
