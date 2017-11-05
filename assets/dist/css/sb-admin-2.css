@@ -92,6 +92,7 @@ body {
 }
 .sidebar ul li a.active {
   background-color: #eeeeee;
+  border-left: 4px solid #337ab7;
 }
 .sidebar .arrow {
   float: right;

@@ -14,6 +14,10 @@ Date Created: October 27, 2017*/
 	border-radius: 0 !important;
 }
 
-.breadcrumbs{
-	margin-bottom: 20px !important;
+.breadcrumb{
+	margin-top: 20px !important;
+}
+
+.dt-buttons{
+	margin-bottom: 12px !important;
 }
