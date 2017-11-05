@@ -1,6 +1,5 @@
 <?php
 
-
 $total_male = get_total('idp where gender =1');
 $total_female = get_total('idp where gender =2');
 $total_children = get_total('idp WHERE Age < 18');
@@ -10,7 +9,14 @@ $total_married =  get_total('idp WHERE MaritalStatus = 2');
 $total_single =  get_total('idp WHERE MaritalStatus = 1');
 $education_data = getDistinctEducation();
 $religion_data = getDistinctReligion();
-var_dump($religion_data);
+
+$total_male = get_total('idp where gender = 1');
+$total_female = get_total('idp where gender = 2');
+// $total_children = get_total('age', 'children');
+// $total_adults = get_total('age', 'adults');
+// $total_senior = get_total('age', 'senior');
+#$total_undefined = get_total('age', 'undefined'); <-- apila ni ug visualize cal
+
 if(!isset($_GET['evac_id']))
     {
         $evac_id = 1;
@@ -21,11 +27,6 @@ else
         $evac_id = $_GET['evac_id'];
          $evac1_data = getDistinctDate($evac_id );
     } 
-
-
-       
-
-
 
 ?>
 
@@ -154,7 +155,7 @@ else
         <?php 
             foreach($education_data as $row) {
              $education = $row['education'];
-            
+              
              $idp_count = $row['TOTAL'];
              
         ?>
@@ -184,24 +185,20 @@ else
 
 <script type="text/javascript">
   $(function() {
- Morris.Donut({
-        element: 'morris-donut-religion',
-        data: [
-        <?php  foreach($religion_data as $row) {
-             $religion = $row['Religion'];
-             $idp_count = $row['total'];
-             
-        ?>
-        {
-            label: '<?php echo $religion; ?>',
-            value: '<?php echo $idp_count; ?>',
-        },
-
-        <?php } ?>
-        ],
-        resize: true
-
-      
-    });
+Morris.Bar({
+  element: 'morris-donut-religion',
+  data: [
+    { y: '2006', a: 100, b: 90 },
+    { y: '2007', a: 75,  b: 65 },
+    { y: '2008', a: 50,  b: 40 },
+    { y: '2009', a: 75,  b: 65 },
+    { y: '2010', a: 50,  b: 40 },
+    { y: '2011', a: 75,  b: 65 },
+    { y: '2012', a: 100, b: 90 }
+  ],
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Series A', 'Series B']
+});
    });
 </script>

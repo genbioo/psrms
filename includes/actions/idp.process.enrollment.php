@@ -1,5 +1,4 @@
 <?php
-die(print_r($_POST));
 include("../../initialize.php");
 includeCore();
 
@@ -26,7 +25,16 @@ if(isset($_POST['Mname'])) $db_handle->bindVar(':Mname', $_POST['Mname'], PDO::P
 if(isset($_POST['Bdate']) && $_POST['Bdate'] != '') $db_handle->bindVar(':Bdate', $_POST['Bdate'], PDO::PARAM_STR,0);
 if(isset($_POST['Age']) && $_POST['Age'] != '') $db_handle->bindVar(':Age', $_POST['Age'], PDO::PARAM_INT,0); else $db_handle->bindNull(':Age');
 if(isset($_POST['Gender'])) $db_handle->bindVar(':Gender', $_POST['Gender'], PDO::PARAM_INT,0); else $db_handle->bindNull(':Gender');
-if(isset($_POST['education'])) $db_handle->bindVar(':Education', $_POST['education'], PDO::PARAM_INT,0); else $db_handle->bindNull(':Education');
+if(isset($_POST['education']) && $_POST['education'] != 'Not Specified')
+{
+    $db_handle->bindVar(':Education', $_POST['education'], PDO::PARAM_INT,0);
+} else if(isset($_POST['Education']) && $_POST['Education'] != 'Not Specified')
+{
+    $db_handle->bindVar(':Education', $_POST['Education'], PDO::PARAM_INT,0);
+}  else
+{
+    $db_handle->bindNull(':Education');
+}
 if(isset($_POST['MaritalStatus'])) $db_handle->bindVar(':MaritalStatus', $_POST['MaritalStatus'], PDO::PARAM_INT,0); else $db_handle->bindNull(':MaritalStatus');
 if(isset($_POST['PhoneNum'])) $db_handle->bindVar(':PhoneNum', $_POST['PhoneNum'], PDO::PARAM_STR,0); else $db_handle->bindNull(':PhoneNum');
 if(isset($_POST['barangay1'])) $db_handle->bindVar(':Origin', $_POST['barangay1'], PDO::PARAM_INT,0); else $db_handle->bindNull(':Origin');

@@ -4,6 +4,8 @@ includeCore();
 
 $_SESSION['loc'] = $_SERVER['PHP_SELF'];
 
+$idpDetails = getIDPExtensiveDetails($id);
+
 $provinces = getProvinces();
 $cities = getCities();
 $barangays = getBarangays();
@@ -81,14 +83,9 @@ $evac_centers = getEvacuationCenters();
 
                                                 <div class="form-group col-md-6">
                                                     <input type="date" name='Bdate' class="form-control">
-
                                                 </div>
 
-                                                <div class="form-group col-md-4">
-                                                    <input class="form-control" name='Age' placeholder="Enter age" type="number" min="0">
-                                                </div>
-
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     <select name='Gender' class="form-control">
                                                         <option selected disabled>Gender</option>
                                                         <option value="1">Male</option>
@@ -97,7 +94,7 @@ $evac_centers = getEvacuationCenters();
                                                     </select>             
                                                 </div>
 
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     <select name='MaritalStatus' class="form-control">
                                                         <option selected disabled>Marital Status</option>
                                                         <option value="1">Single</option>
@@ -123,9 +120,9 @@ $evac_centers = getEvacuationCenters();
                                                         <div class="col-md-6">
                                                             <select class="form-control" id="Education" name="Education">
                                                                 <option selected disabled>Educational Attainment</option>
-                                                                <option value="elementary">Elementary</option>
-                                                                <option value="highschool">Highschool</option>
-                                                                <option value="college">College</option>
+                                                                <option value="20">Elementary</option>
+                                                                <option value="21">Highschool</option>
+                                                                <option value="22">College</option>
                                                                 <option>Not Specified</option>
                                                             </select>
                                                         </div>
@@ -133,6 +130,7 @@ $evac_centers = getEvacuationCenters();
                                                         <div class="col-md-6">
 
                                                             <select class="form-control" name='education' id="elementary1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="1">Grade 1</option>
                                                                 <option value="2">Grade 2</option>
                                                                 <option value="3">Grade 3</option>
@@ -140,9 +138,11 @@ $evac_centers = getEvacuationCenters();
                                                                 <option value="5">Grade 5</option>
                                                                 <option value="6">Grade 6</option>
                                                                 <option value="7">Elementary Graduate</option>
+                                                                <option>Not Specified</option>
                                                             </select>
 
                                                             <select class="form-control" name='education' id="highschool1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="8">Grade 7</option>
                                                                 <option value="9">Grade 8</option>
                                                                 <option value="10">Grade 9</option>
@@ -150,14 +150,17 @@ $evac_centers = getEvacuationCenters();
                                                                 <option value="12">Grade 11</option>
                                                                 <option value="13">Grade 12</option>
                                                                 <option value="14">High School Graduate</option>
+                                                                <option>Not Specified</option>
                                                             </select>
 
                                                             <select class="form-control" name='education' id="college1" style="display: none;">
+                                                                <option selected disabled>Level</option>
                                                                 <option value="15">1st year</option>
                                                                 <option value="16">2nd year</option>
                                                                 <option value="17">3rd year</option>
                                                                 <option value="18">4th year</option>      
                                                                 <option value="19">College Graduate</option>
+                                                                <option>Not Specified</option>
                                                             </select>
 
                                                         </div>
