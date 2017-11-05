@@ -24,27 +24,15 @@ else
 
     </head>
 
-    <body class="hold-transition skin-blue sidebar-mini fixed">
+    <body>
 
         <div class="wrapper">
-            
-           <?php includeNav(); ?>
 
-           <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
+            <?php includeNav(); ?>
 
-            <!-- Main content -->
-            <section class="content container-fluid">
-
-              <div id="page-wrapper">
-               
-               <div class="row">
-                    <br>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
+            <div class="page-wrapper">
+                
                 <div class="row">
-                   
                    <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -136,11 +124,11 @@ else
                             </a>
                         </div>
                     </div>
-                    
                     <!-- ./col -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
+
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -229,16 +217,8 @@ else
                 </div>
 
 
-            </div>
-            <!-- /#page-wrapper -->
-
-            </section>
-            <!-- /.content -->
-          </div>
-
-        </div>
-        <!-- /#wrapper -->
-
+            </div><!-- page wrapper -->
+        </div><!-- wrapper -->
 
         <?php 
         includeCommonJS(); 
