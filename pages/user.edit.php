@@ -42,7 +42,7 @@ $userInfo = getUserInfo($id);
                 <div class="row">
                     
                     <div class="panel-body">
-                        <form method="POST" action="/includes/actions/user.process.edit.php?<?php echo($id); ?>">
+                        <form method="POST" action="/includes/actions/user.process.edit.php?id=<?php echo($id); ?>">
                             <div  id = "personal_info_div" class="col-lg-12">
                                 <div class="panel">
                                         
