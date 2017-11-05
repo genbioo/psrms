@@ -68,7 +68,7 @@
                     <a href="user.enroll.php"><i class="fa fa-key fa-fw"></i> Account Management</a>
                 </li>
                 <li>
-                    <a href="maps.php"><i class="fa fa-key fa-fw"></i> Maps</a>
+                    <a href="maps.php"><i class="fa fa-map-marker fa-fw"></i> Maps</a>
                 </li>
                 <?php
                 } ?>

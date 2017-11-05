@@ -1,4 +1,5 @@
 <?php
+die(print_r($_POST));
 include("../../initialize.php");
 includeCore();
 
@@ -11,11 +12,12 @@ if($_POST["pwd1"] != $_POST["pwd2"]) {
 } else {
     if($_POST["Agency"] != "specify") {
         //Register User
-        $query = "INSERT INTO `user` (`UserID`, `Lname`, `Fname`, `Mname`, `Sex`, `PhoneNum`, `Position`, `DateAdded`, `AGENCY_AgencyID`) VALUES (NULL, :Lname, :Fname, :Mname, :Sex, :PhoneNum, NULL, NOW(), :AgencyID)";
+        $query = "INSERT INTO `user` (`UserID`, `Lname`, `Fname`, `Mname`, `Sex`, `PhoneNum`, `Position`, `DateAdded`, `AGENCY_AgencyID`) VALUES (NULL, :Lname, :Fname, :Mname, :Sex, :PhoneNum, NULL, :Bdate, :AgencyID)";
         $db_handle->prepareStatement($query);
         $db_handle->bindVar(':Lname', $_POST['Lname'], PDO::PARAM_STR,0);
         $db_handle->bindVar(':Fname', $_POST['Fname'], PDO::PARAM_STR,0);
         $db_handle->bindVar(':Mname', $_POST['Mname'], PDO::PARAM_STR,0);
+        $db_handle->bindVar(':Bdate', $_POST['Bdate'], PDO::PARAM_STR,0);
         $db_handle->bindVar(':Sex', $_POST['Gender'], PDO::PARAM_INT,0);
         $db_handle->bindVar(':PhoneNum', $_POST['PhoneNum'], PDO::PARAM_STR,0);
         $db_handle->bindVar(':AgencyID', $_POST['Agency'], PDO::PARAM_INT,0);

@@ -26,10 +26,37 @@ $Cities = getCities();
                         <li class="breadcrumb-item active">Evacuation Centers</li>
                     </ol>
                 </div>
+                <?php
+                if(isset($_GET['status']) && $_GET['status'] == 'error2')
+                {
+                ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Barangay should be set!
+                </div>
+                <?php
+                } else if(isset($_GET['status']) && $_GET['status'] == 'enrollsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    New Evacuation Center Enrolled!
+                </div>
+                <?php
+                } else if(isset($_GET['status']) && $_GET['status'] == 'editsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Changes saved!
+                </div>
+                <?php
+                }
+                ?>
                 <!-- /.row -->
                 <div class="row">
                     <div class="header">
-                        <h3 class="title">&nbsp;Evacuation Centers <a href="/pages/forms.add.evacuation.php" class="btn btn-success btn-xs">Add Evacuation Center</a></h3>
+                        <h3 class="title">&nbsp;Evacuation Centers <a href="/pages/evac.enroll.php" class="btn btn-success btn-xs">Add Evacuation Center</a></h3>
                     
                     </div>
                     <div class="panel-body">
@@ -46,7 +73,14 @@ $Cities = getCities();
                                             <th>Evacuation Center Manager</th>
                                             <th>Evacuation Center Contact</th>
                                             <th>Evacuation Center Specific Address</th>
+                                            <?php
+                                            if($_SESSION['account_type'] == '77')
+                                            {
+                                            ?>
                                             <th>Action</th>
+                                            <?php
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
                                 </table>

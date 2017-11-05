@@ -67,7 +67,7 @@ function includeLayoutGenerator()
 #---- include functions end ----
 
 #---- db fetch functions ----
-function getIDPDetails($id) {
+function getIDPDetails($id = '') {
     $db_handle = new DBController();
     $db_handle->prepareStatement("SELECT * FROM `idp` WHERE IDP_ID = :idpID");
     $db_handle->bindVar(':idpID', $id, PDO::PARAM_INT,0);
@@ -76,7 +76,7 @@ function getIDPDetails($id) {
     return $idp;
 }
 
-function getIDPExtensiveDetails($id) {
+function getIDPExtensiveDetails($id = '') {
     $db_handle = new DBController();
     $db_handle->prepareStatement(
         "SELECT idp.IDP_ID,
@@ -92,12 +92,30 @@ function getIDPExtensiveDetails($id) {
     return $idpInfo;
 }
 
-function calculateAge($birthDate)
+function getUserInfo($userID = '')
+{
+    $db_handle = new DBController();
+    $db_handle->prepareStatement(
+        "SELECT user.Lname, user.Fname, user.Mname, user.DateAdded, user.Sex, user.PhoneNum, user.AGENCY_AgencyID, account.Username FROM user LEFT JOIN account ON account.USER_UserID = user.UserID WHERE user.UserID = :userID");
+
+    $db_handle->bindVar(':userID', $userID, PDO::PARAM_INT, 0);
+    $userInfo = $db_handle->runFetch();
+
+    return $userInfo;
+}
+
+function calculateAge($birthDate = '')
 {
     $today = date("Y-m-d");
     $diff = date_diff(date_create($birthDate), date_create($today));
     
-    return $diff->format('%y');
+    if($birthDate != '')
+    {
+        return $diff->format('%y');
+    } else
+    {
+        return 'N/A';
+    }
 }
 
 function translateDate($date = '', $time = '')
@@ -269,6 +287,17 @@ function getEvacDetails($evacID = '')
     $result = $db_handle->runFetch();
     
     return $result[0]['EvacAndAddress'];
+}
+
+function getExtensiveEvacDetails($evacID = '')
+{
+    $db_handle = new DBController();
+    $db_handle->prepareStatement("SELECT * FROM evacuation_centers WHERE evacuation_centers.EvacuationCentersID = :evacID");
+    $db_handle->bindVar(':evacID', $evacID, PDO::PARAM_INT,0);
+    
+    $result = $db_handle->runFetch();
+    
+    return $result;
 }
 
 function getAgencies()
@@ -592,7 +621,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
         }
     } else if($listType === 'Users')
     {
-        $query .= "SELECT account.AccountID,
+        $query .= "SELECT account.AccountID, user.UserID,
                           CONCAT(user.Lname,', ', user.Fname, ' ', user.Mname) as User,
                           user.PhoneNum,
                           agency.AgencyName AS Agency,
@@ -880,13 +909,8 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 $subArray[] = $row["IDP_ID"];
                 $subArray[] = $row["Gender"];
                 $age = calculateAge($row["Bdate"]);
-                if($age != 0)
-                {
-                    $subArray[] = $age;
-                } else
-                {
-                    $subArray[] = "Unspecified Birth Date";
-                }
+                $subArray[] = $age;
+                
                 if($row['intake_answersID'] == 0) {
                     $subArray[] = 
                         '<a class="btn btn-info btn-sm btn-block" href="idp.assessment.history.php?id='.$row["IDP_ID"].'">
@@ -913,12 +937,14 @@ function getList($data, $listType = 'IDP', $listTarget = '')
             {
                 $recordsFiltered = get_total_all_records('Users', 0);
 
-                $subArray["DT_RowId"] = $row["AccountID"];
+                $subArray["DT_RowId"] = $row["UserID"];
                 $subArray[] = $row["User"];
                 $subArray[] = $row["PhoneNum"];
                 $subArray[] = $row["Agency"];
-                $phpdate = strtotime($row["DateAdded"]);
-                $subArray[] = date('M d, Y <\b\r> h:i a', $phpdate);
+                $subArray[] = translateDate($row["DateAdded"]);
+                $subArray[] = '<a class="btn btn-info btn-xs center-block" href="user.edit.php?id='.$row["UserID"].'">
+                        <i class="fa fa-pencil-square-o"></i>Edit Info
+                     </a>';
             }
             else if($listType === 'Tool')
             {
@@ -940,10 +966,12 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 $subArray[] = $row["EvacManager"];
                 $subArray[] = $row["EvacManagerContact"];
                 $subArray[] = $row["SpecificAddress"];
-                
-                $subArray[] = '<a class="btn btn-info btn-xs center-block" href="evac.edit.php?evacid='.$row["EvacuationCentersID"].'">
+                if($_SESSION['account_type'] == '77')
+                {
+                    $subArray[] = '<a class="btn btn-info btn-xs center-block" href="evac.edit.php?evacid='.$row["EvacuationCentersID"].'">
                         <i class="fa fa-pencil-square-o"></i>Edit Info
                      </a>';
+                }
             }
             else if($listType === 'Assessment_taken')
             {

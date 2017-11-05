@@ -12,6 +12,7 @@ $formID = getIntakeID($idpID, $ageGroup);
 $questions = getAssessmentQuestions('Intake',$formID);
 $formInfo = getIntakeInfo($formID);
 $idpInfo = getIDPExtensiveDetails($idpID);
+$evacDetails = getEvacDetails($idpInfo[0]['EvacID'])
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,27 +42,22 @@ $idpInfo = getIDPExtensiveDetails($idpID);
                             <div id="collapseOne" class="panel-collapse collapse">
                                 <hr>
                                 <div id="idp-info">
-                                    <p class="field-label"><b>Date of Intake: </b><?php echo(date("l").', '.date("m-d-Y")); ?></p>
-                                    <p class="field-label"><b>Age: </b><?php echo($result['Age']); ?></p>
-                                    <p class="field-label"><b>Sex: </b><?php echo(($result['Gender'] == 1) ? 'Male' : 'Female'); ?></p>
-                                    <p class="field-label"><b>Marital status: </b><?php echo(($result['MaritalStatus'] == 1) ? 'Single' : 'Married'); ?></p>
+                                    <p class="field-label"><b>Date of Intake: </b><?php echo(date("l").', '.translateDate(date("m-d-Y"))); ?></p>
+                                    <p class="field-label"><b>Age: </b><?php echo(calculateAge($result['Bdate'])); ?></p>
+                                    <p class="field-label"><b>Sex: </b><?php echo(getGender($result['Gender'])); ?></p>
+                                    <p class="field-label"><b>Marital status: </b><?php echo(getMaritalStatus($result['MaritalStatus'])); ?></p>
                                     <?php
                                 if(isset($result['Occupation'])) {
                                     echo '<p class="field-label"><b>Employment/ Occupation: </b>'.$result['Occupation'].'</p>';
                                 }
                                     ?>
-                                    <p class="field-label"><b>Type of Relocation: </b><?php echo(($result['EvacType'] == 1) ? 'Government' : 'Home-based'); ?></p>
+                                    <p class="field-label"><b>Type of Relocation: </b><?php echo(($evacDetails[0]['EvacType'] == 1) ? 'Government' : 'Home-based'); ?></p>
                                     <p class="field-label"><b>Address/Name of Evacuation Center: </b>
-                                        <?php if(isset($result['EvacName']) && $result['EvacName'] != '') echo($result['EvacName'].'; '); echo($result['Evac_Address']); ?></p>
+                                        <?php echo(($result['EvacID'] != '' ? getEvacDetails($result['EvacID']) : 'unspecified' )); ?>
                                     <p class="field-label"><b>Address prior to evacuation: </b>
-                                        <?php
-                                if(isset($result['SpecificAddress']) && $result['SpecificAddress'] != '') {
-                                    echo($result['SpecificAddress'].'; ');
-                                }
-                                echo($result['Origin_Address']);
-                                        ?>
+                                        <?php echo(getFullAddress($idpInfo[0]['Origin_Barangay'], $idpID)); ?>
                                     </p>
-                                    <p class="field-label"><b>Contact info: </b></p>
+                                    <p class="field-label"><b>Contact info: </b><?php echo(($result['PhoneNum'] != '' ? $result['PhoneNum'] : 'unspecified' )); ?></p>
                                 </div>
                             </div>
                             <?php

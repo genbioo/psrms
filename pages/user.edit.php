@@ -2,9 +2,10 @@
 include("../initialize.php");
 includeCore();
 
-$_SESSION['loc'] = $_SERVER['PHP_SELF'];
+$id = $_GET['id'];
 
 $agencies = getAgencies();
+$userInfo = getUserInfo($id);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $agencies = getAgencies();
     <head>
 
         <?php
-        includeHead("PSRMS - Account Management");
+        includeHead("PSRMS - Edit Account");
         includeDataTables();
         ?>
 
@@ -28,69 +29,68 @@ $agencies = getAgencies();
             <div id="page-wrapper">
                 <div class="row">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Account Management</li>
+                        <li class="breadcrumb-item"><a href="user.enroll.php">Account Management</a></li>
+                        <li class="breadcrumb-item active">Edit Account</li>
                     </ol>
                 </div>
                 <div class="row">
                     <div class="header">
-                        <h3 class="title">&nbsp;Account Management</h3>
+                        <h3 class="title">&nbsp;Edit Account</h3>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <div class="panel-heading"><h6><b>Enroll Account</b></h6></div>
-                        </a>
-                    </div>
                     
                     <div class="panel-body">
-                        <form method="POST" action="/includes/actions/user.process.enrollment.php">
+                        <form method="POST" action="/includes/actions/user.process.edit.php?<?php echo($id); ?>">
                             <div  id = "personal_info_div" class="col-lg-12">
                                 <div class="panel">
-                                    <div class="panel-body panel-collapse collapse" id="collapseOne">
                                         
                                         <div class="form-group col-md-4">
-                                            <input class="form-control" id = 'Lname' name='Lname' placeholder="Last name" required>
+                                            <input class="form-control" id = 'Lname' name='Lname' placeholder="Last name" value="<?php echo($userInfo[0]['Lname']); ?>" required>
                                         </div>
                                         
                                         <div class="form-group col-md-4">
-                                            <input class="form-control" id="Fname" name='Fname' placeholder="First name" required>
+                                            <input class="form-control" id="Fname" name='Fname' placeholder="First name" value="<?php echo($userInfo[0]['Fname']); ?>" required>
                                         </div>
                                         
                                         <div class="form-group col-md-4">
-                                            <input class="form-control" id='Mname' name='Mname' placeholder="Middle Name" required>
+                                            <input class="form-control" id='Mname' name='Mname' placeholder="Middle Name" value="<?php echo($userInfo[0]['Mname']); ?>" required>
                                         </div>
                                         
                                         <div class="form-group col-md-4">
-                                            <input type="date" id="Bdate" name='Bdate' class="form-control" required>
+                                            <input type="date" id="Bdate" name='Bdate' class="form-control" value="<?php echo(date('Y-m-d',strtotime($userInfo[0]['DateAdded']))); ?>" required>
                                         </div>
-
+                                    
                                         <div class="form-group col-md-4">
-                                            <input class="form-control" id="Age" placeholder="Age" type="text" min="0" value="Age is automatically calculated" disabled>
+                                            <input class="form-control" id="Age" name='Age' placeholder="Age" type="text" min="0" value="<?php echo('Age: '.calculateAge(date('Y-m-d',strtotime($userInfo[0]['DateAdded']))).' (auto)'); ?>" disabled>
                                         </div>
                                         
                                         <div class="form-group col-md-4">
                                             <select id="Gender" name='Gender' class="form-control" required>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
+                                                <option value="1" <?php if($userInfo[0]['Sex'] == '1') echo("selected=selected") ?>>Male</option>
+                                                <option value="2" <?php if($userInfo[0]['Sex'] == '2') echo("selected=selected") ?>>Female</option>
                                             </select>             
                                         </div>
                                         
                                         <div class="form-group col-md-6">
-                                            <input class="form-control" id="PhoneNum" name='PhoneNum' placeholder="Phone Number" id = "PhoneNum">
+                                            <input class="form-control" id="PhoneNum" name='PhoneNum' placeholder="Phone Number" id = "PhoneNum" value="<?php echo($userInfo[0]['PhoneNum']); ?>">
                                         </div>
                                         
                                         <div class="form-group col-md-6">
-                                            <input type="email" class="form-control" id='Email' name='Email' placeholder="your@mail.com">
+                                            <input type="email" class="form-control" id='Email' name='Email' placeholder="your@mail.com" value="<?php echo($userInfo[0]['Username']); ?>">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12">
+                                            <input type="password" class="form-control" id="pwd1" name="pwd1" placeholder="Enter old password" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="this.setCustomValidity('Atleast 7 chars with atleast 1 uppercase and 1 special char')" oninput="setCustomValidity('')">
                                         </div>
                                         
                                         <div class="form-group col-md-6">
-                                            <input type="password" class="form-control" id="pwd1" name="pwd1" placeholder="Enter password" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="this.setCustomValidity('Atleast 7 chars with atleast 1 uppercase and 1 special char')" oninput="setCustomValidity('')">
+                                            <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="Enter new password" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="this.setCustomValidity('Atleast 7 chars with atleast 1 uppercase and 1 special char')" oninput="setCustomValidity('')">
                                         </div>
-                                        
+                                    
                                         <div class="form-group col-md-6">
-                                            <input type="password" class="form-control" id="pwd2" name="pwd2" placeholder="Verify password" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="this.setCustomValidity('Atleast 7 chars with atleast 1 uppercase and 1 special char')" oninput="setCustomValidity('')">
+                                            <input type="password" class="form-control" id="pwd3" name="pwd3" placeholder="Verify new password" pattern="(?=^.{7,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="this.setCustomValidity('Atleast 7 chars with atleast 1 uppercase and 1 special char')" oninput="setCustomValidity('')">
                                         </div>
                                         
                                         <div class="form-group col-md-12">
@@ -103,7 +103,7 @@ $agencies = getAgencies();
                                                 <?php
                                                 foreach($agencies as $agency) {
                                                 ?>
-                                                <option value="<?php echo($agency["AgencyID"]) ?>"><?php echo($agency["AgencyName"]) ?></option>
+                                                <option value="<?php echo($agency["AgencyID"]) ?>" <?php if($userInfo[0]['AGENCY_AgencyID'] == $agency['AgencyID']) echo("selected=selected") ?>><?php echo($agency["AgencyName"]) ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -116,42 +116,14 @@ $agencies = getAgencies();
                                             <input class="form-control" id="specAgency" name="specAgency" placeholder="Enter Your Agency">
                                         </div>
                                         
-                                        <div class="form-group col-md-4">
-                                            <label for="UserGroup">User Group<span class="required">*</span></label>
-                                            <select id="UserGroup" name='UserGroup' class="form-control" required>
-                                                <option value="1">MSU-IIT Psych Dept</option>
-                                                <option value="2">MSU-IIT GCC</option>
-                                            </select>
-                                        </div>
-                                        
                                         <div class="form-group col-md-12">
                                             <input type="submit" class="btn btn-info btn-fill btn-sm">
                                         </div>
                                         
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
-                    
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <table width="100%" class="table table-bordered table-hover" id="table-user-list">
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone No.</th>
-                                            <th>Agency</th>
-                                            <th>Date Enrolled</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 
             </div>
@@ -173,24 +145,6 @@ $agencies = getAgencies();
                 }
             });
         });
-        $(document).ready(function() {
-            var dataTable = $('#table-user-list').DataTable( {
-                "responsive": true,
-                "processing": true,
-                "serverSide": true,
-                "order":[],
-                "ajax":{
-                    url :"<?php echo(ROOT); ?>includes/actions/user.generate.list.php",
-                    method: "POST",
-                },
-                "columnDefs":[
-                    {
-                        "targets": [4],
-                        "orderable":false
-                    },
-                ]
-            } );
-        } );
     </script>
     
 </html>
