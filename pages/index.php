@@ -37,6 +37,7 @@ else
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                
                 <div class="row">
                    
                    <div class="col-lg-3 col-md-6">
@@ -220,8 +221,52 @@ else
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Education
+                            </div>
+                            <div class="panel-body">
+
+                             
+                                        <div id="morris-Education"></div>
+                                
+                             
+                                
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Marital Status
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-donut-marital"></div>
+                                <a href="#" class="btn btn-default btn-block">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Religion
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-donut-religion"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
 
             </div>
             <!-- /#page-wrapper -->

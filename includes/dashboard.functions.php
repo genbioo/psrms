@@ -58,6 +58,31 @@ function getDistinctDate($str)
     return $result;   
 }
 
+function getDistinctEducation()
+# author: Cali, Mohammad G.
+# Date Created : Oct. 24, 2017
+
+{
+
+    $db_handle = new DBController();
+    $db_handle->prepareStatement("SELECT education, COUNT(*) AS TOTAL from IDP GROUP BY Education");
+    $result = $db_handle->runFetch();
+     return $result;   
+}
+
+function getDistinctReligion()
+# author: Cali, Mohammad G.
+# Date Created : Oct. 24, 2017
+
+{
+
+    $db_handle = new DBController();
+    $db_handle->prepareStatement("SELECT `Religion`, COUNT(*) AS TOTAL from IDP GROUP BY `Religion`");
+    $result = $db_handle->runFetch();
+   return $result;   
+}
+
+
 function getIDPList($str)
 {
     $db_handle = new DBController();
