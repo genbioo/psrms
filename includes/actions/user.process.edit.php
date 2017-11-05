@@ -135,5 +135,5 @@ if(isset($_POST['Email']))
 }
     
 
-header("location: /pages/user.enroll.php?status=updatesuccess");
+header("location: /pages/user.list.php?status=updatesuccess");
 ?>
