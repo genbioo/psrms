@@ -14,7 +14,7 @@ $Barangays = getDistinctBarangay();
   <head>
    
     <?php
-        includeHead("PSRMS - Evacuation Centers");
+        includeHead("PSRMS - Maps");
     ?>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
@@ -30,7 +30,7 @@ $Barangays = getDistinctBarangay();
         height: 100%;
         width: 100%;
         margin: 0;
-        padding-left: 140px;
+        padding-left: 125px;
       }
     </style>
   </head>
@@ -38,7 +38,7 @@ $Barangays = getDistinctBarangay();
             <?php includeNav(); ?>
                     <div id="map"></div>
            
-   
+           <?php includeCommonJS(); ?>
   </body>
 
    <script>
