@@ -15,8 +15,14 @@ $intakeCount = getIntakeCount($id);
     <head>
 
         <?php 
-        includeHead("PSRMS - ".$idp[0]['IDPName']." Assessment History"); 
-        includeDataTables('advanced');
+        includeHead("PSRMS - ".$idp[0]['IDPName']." Assessment History");
+        if($_SESSION['account_type'] == '77')
+        {
+            includeDataTables('advanced');
+        } else
+        {
+            includeDataTables();
+        }
         ?>
         <?php
         if($_SESSION['account_type'] == '77')

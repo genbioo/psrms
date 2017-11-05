@@ -1,5 +1,4 @@
 <?php
-die(print_r($_POST));
 include("../../initialize.php");
 includeCore();
 
@@ -33,9 +32,7 @@ if($_POST["pwd1"] != $_POST["pwd2"]) {
         $db_handle->bindVar(':uOrg', $_POST['UserGroup'], PDO::PARAM_INT,0);
         $db_handle->runUpdate();
         
-        echo "<script type='text/javascript'>alert('Success!');
-        location='".$_SESSION['loc']."';
-        </script>";
+        header('location: /pages/user.list.php?status=enrollsuccess');
     } else {
         //Register specified agency
         $query = "INSERT INTO `agency` (`AgencyID`, `AgencyName`) VALUES (NULL, :agency)";
@@ -65,9 +62,7 @@ if($_POST["pwd1"] != $_POST["pwd2"]) {
         $db_handle->bindVar(':uOrg', $_POST['UserGroup'], PDO::PARAM_INT,0);
         $db_handle->runUpdate();
         
-        echo "<script type='text/javascript'>alert('Success!');
-        location='".$_SESSION['loc']."';
-        </script>";
+        header('location: /pages/user.list.php?status=enrollsuccess');
     }
 }
 ?>

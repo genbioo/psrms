@@ -13,7 +13,7 @@ $agencies = getAgencies();
     <head>
 
         <?php
-        includeHead("PSRMS - Account Management");
+        includeHead("PSRMS - Register new account");
         includeDataTables();
         ?>
 
@@ -28,31 +28,23 @@ $agencies = getAgencies();
             <div id="page-wrapper">
                 <div class="row">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Account Management</li>
+                        <li class="breadcrumb-item"><a href="user.list.php">Account Management</a></li>
+                        <li class="breadcrumb-item active">Register new account</li>
                     </ol>
                 </div>
                 <div class="row">
                     <div class="header">
-                        <h3 class="title">&nbsp;Account Management</h3>
+                        <h3 class="title">&nbsp;Register new account</h3>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <div class="panel-heading"><h6><b>Enroll Account</b></h6></div>
-                        </a>
-                    </div>
                     
                     <div class="panel-body">
                         <form method="POST" action="/includes/actions/user.process.enrollment.php">
                             <div  id = "personal_info_div" class="col-lg-12">
                                 <div class="panel">
-                                    <div class="panel-body panel-collapse collapse" id="collapseOne">
-                                        
-                                        <div class="form-group col-md-4">
-                                            <input class="form-control" id = 'Lname' name='Lname' placeholder="Last name" required>
-                                        </div>
+                                    <div class="panel-body" id="collapseOne">
                                         
                                         <div class="form-group col-md-4">
                                             <input class="form-control" id="Fname" name='Fname' placeholder="First name" required>
@@ -60,6 +52,10 @@ $agencies = getAgencies();
                                         
                                         <div class="form-group col-md-4">
                                             <input class="form-control" id='Mname' name='Mname' placeholder="Middle Name" required>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-4">
+                                            <input class="form-control" id = 'Lname' name='Lname' placeholder="Last name" required>
                                         </div>
                                         
                                         <div class="form-group col-md-4">
@@ -134,24 +130,6 @@ $agencies = getAgencies();
                         </form>
                     </div>
                     
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <table width="100%" class="table table-bordered table-hover" id="table-user-list">
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone No.</th>
-                                            <th>Agency</th>
-                                            <th>Date Enrolled</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
                 
             </div>
@@ -173,24 +151,6 @@ $agencies = getAgencies();
                 }
             });
         });
-        $(document).ready(function() {
-            var dataTable = $('#table-user-list').DataTable( {
-                "responsive": true,
-                "processing": true,
-                "serverSide": true,
-                "order":[],
-                "ajax":{
-                    url :"<?php echo(ROOT); ?>includes/actions/user.generate.list.php",
-                    method: "POST",
-                },
-                "columnDefs":[
-                    {
-                        "targets": [4],
-                        "orderable":false
-                    },
-                ]
-            } );
-        } );
     </script>
     
 </html>
