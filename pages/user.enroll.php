@@ -116,7 +116,7 @@ $agencies = getAgencies();
                                     </div>
                                     
                                     <div class="form-group col-md-12">
-                                        <input type="submit" class="btn btn-info btn-fill btn-sm">
+                                        <input type="submit" class="btn btn-primary btn-fill btn-md">
                                     </div>
                                 </div>
                                 </form>  

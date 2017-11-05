@@ -58,8 +58,8 @@ $intakeCount = getIntakeCount($id);
                             {
                             ?>
                             <sup>
-                                <a type="button" class="btn btn-success btn-xs" href="idp.details.php?id=<?php echo($id); ?>">
-                                    <i class="fa fa-info-circle">&nbsp;Info</i>
+                                <a type="button" class="btn btn-info btn-xs" href="idp.details.php?id=<?php echo($id); ?>">
+                                    <i class="fa fa-info-circle"></i>&nbsp;IDP Details
                                 </a>
                             </sup>
                             <?php
