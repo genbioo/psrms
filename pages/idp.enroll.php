@@ -4,8 +4,6 @@ includeCore();
 
 $_SESSION['loc'] = $_SERVER['PHP_SELF'];
 
-$idpDetails = getIDPExtensiveDetails($id);
-
 $provinces = getProvinces();
 $cities = getCities();
 $barangays = getBarangays();

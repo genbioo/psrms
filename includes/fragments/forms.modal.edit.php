@@ -78,7 +78,7 @@ if($editing === "trans") {
                                         echo($arr[0]);
                                         ?>
                                         </label>
-                                        <textarea class="form-control mdltxt" rows="5" name="question-<?php echo($question['QuestionsID']) ?>"></textarea>
+                                        <textarea class="form-control mdltxt" rows="5" name="question-<?php echo($question['QuestionsID']) ?>" required></textarea>
                                         <input type="hidden" name="oldQuestion-<?php echo($question['QuestionsID']) ?>" value="<?php echo($question['Question']) ?>">
                                     </div>
                                     <?php
