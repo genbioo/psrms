@@ -25,6 +25,7 @@
         <div class="modal-body">
           <p class ="gender-donut" id = "Male-info" style="display: none;"><?php echo getIDPList(1);?></p>
           <p class ="gender-donut" id = "Female-info" style="display: none;"><?php echo getIDPList(2);?></p>
+           <div id="morris-donut-chart1"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
