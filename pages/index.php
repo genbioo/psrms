@@ -6,7 +6,7 @@ includeDashboardModal();
 $evac_centers = getEvacuationCenters();
 if(!isset($_GET['evac_id']))
 {
-    $evac_id = 1;
+        $evac_id = 1;
 
 }
 else
@@ -27,20 +27,20 @@ else
     <body class="hold-transition skin-blue sidebar-mini fixed">
 
         <div class="wrapper">
+            
+           <?php includeNav(); ?>
 
-            <?php includeNav(); ?>
-
-            <div id="page-wrapper">
-
-                <div class="row">
+              <div id="page-wrapper">
+               
+               <div class="row">
                     <br>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 
                 <div class="row">
-
-                    <div class="col-lg-3 col-md-6">
+                   
+                   <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -108,7 +108,7 @@ else
                             </a>
                         </div>
                     </div>
-
+                    
                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-red">
                             <div class="panel-heading">
@@ -131,7 +131,7 @@ else
                             </a>
                         </div>
                     </div>
-
+                    
                     <!-- ./col -->
                 </div>
                 <!-- /.row -->
@@ -142,19 +142,19 @@ else
                                 <i class="fa fa-bar-chart-o fa-fw"></i> Gender
                             </div>
                             <div class="panel-body">
-                                <div id="morrisdetails-item" class="morris-hover morris-default-style" style="display: none">
-                                    <div class="morris-hover-row-label"></div>
-                                    <div class="morris-hover-point"></div>
-                                </div>
+                                 <div id="morrisdetails-item" class="morris-hover morris-default-style" style="display: none">
+                                <div class="morris-hover-row-label"></div>
+                              <div class="morris-hover-point"></div>
+                                   </div>
                                 <div id="morris-donut-chart"></div>
-
+                                
                             </div>
 
                         </div>
                     </div>
 
 
-                    <div class="col-lg-8">
+                   <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="fa fa-bar-chart-o fa-fw"></i> IDP
@@ -167,16 +167,16 @@ else
                                         <ul id = "sizelist" class="dropdown-menu pull-right" role="menu">
 
                                             <?php
-                                            foreach ($evac_centers as $result) {
-                                            ?>
-                                            <li data-value = "<?php echo($result['EvacuationCentersID']); ?>"><a href="#"><?= $result['EvacName']; ?></a>
-                                            </li>
+                                                        foreach ($evac_centers as $result) {
+                                                        ?>
+                                                        <li data-value = "<?php echo($result['EvacuationCentersID']); ?>"><a href="#"><?= $result['EvacName']; ?></a>
+                                                        </li>
 
-
-                                            <?php } ?>
+                                                        
+                                             <?php } ?>
 
                                         </ul>
-
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -185,23 +185,23 @@ else
                             <div class="panel-body">
 
                                 <?php
-
+                               
                                 if(getDistinctDate($evac_id) !=NULL)
-                                {
+                                    {
                                 ?>
-                                <div id="evac1"></div>
-
+                                        <div id="evac1"></div>
+                                
                                 <?php 
-                                }  
+                                    }  
                                 else 
-                                { 
+                                    { 
                                 ?>      
-                                <div> No IDPs in these evacaution </div>
-
+                                        <div> No IDPs in these evacaution </div>
+                                
                                 <?php
-                                } 
+                                    } 
                                 ?>
-
+                                
                             </div>
 
                         </div>
@@ -281,16 +281,16 @@ else
         ?>
 
     </body>
-    <script type="text/javascript">
-
-        $("#sizelist").on("click", "a", function(e)
-                          {
-            e.preventDefault();
-            var $this = $(this).parent();
-            $this.addClass("select").siblings().removeClass("select");
-            $('#evac' + $this.data("value")).show();
-            window.location.href = "index.php?evac_id=" + $this.data("value"); 
-        })
-
+      <script type="text/javascript">
+    
+    $("#sizelist").on("click", "a", function(e)
+    {
+         e.preventDefault();
+         var $this = $(this).parent();
+         $this.addClass("select").siblings().removeClass("select");
+         $('#evac' + $this.data("value")).show();
+         window.location.href = "index.php?evac_id=" + $this.data("value"); 
+    })
+    
     </script>
 </html>
