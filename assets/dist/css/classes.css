@@ -13,3 +13,7 @@ Date Created: October 27, 2017*/
 	webkit-box-shadow: none;
 	border-radius: 0 !important;
 }
+
+.breadcrumbs{
+	margin-bottom: 20px !important;
+}
