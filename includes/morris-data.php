@@ -1,11 +1,12 @@
 <?php
 
 
-$total_male = get_total('idp where gender =1');
-$total_female = get_total('idp where gender =2');
-$total_children = get_total('idp WHERE Age < 18');
-$total_adults = get_total('idp WHERE Age >= 18 AND Age < 60');
-$total_senior = get_total('idp WHERE Age >= 60');
+$total_male = get_total('idp where gender = 1');
+$total_female = get_total('idp where gender = 2');
+$total_children = get_total('age', 'children');
+$total_adults = get_total('age', 'adults');
+$total_senior = get_total('age', 'senior');
+#$total_undefined = get_total('age', 'undefined'); <-- apila ni ug visualize cal
 
 if(!isset($_GET['evac_id']))
     {
@@ -17,11 +18,6 @@ else
         $evac_id = $_GET['evac_id'];
          $evac1_data = getDistinctDate($evac_id );
     } 
-
-
-       
-
-
 
 ?>
 

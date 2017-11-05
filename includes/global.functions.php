@@ -158,7 +158,10 @@ function getEducationalAttainment($eaCode = '')
         16 => '2nd Year College',
         17 => '3rd Year College',
         18 => '4th Year College',
-        19 => 'College Graduate'
+        19 => 'College Graduate',
+        20 => 'Elementary',
+        21 => 'High School',
+        22 => 'College'
     );
     
     if($eaCode != '')
