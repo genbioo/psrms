@@ -822,12 +822,12 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                         $phpdate = strtotime($row['DateTaken']);
                         $subArray[] = date('M d, Y <\b\r> h:i a', $phpdate);
                         if(isset($row['Result1'])) {
-                            $subArray[] = ($row['Result1' ]== '0' ? 'Yes' : 'No');
+                            $subArray[] = ($row['Result1' ]== '1' ? 'Yes' : 'No');
                         } else {
                             $subArray[] = '(blank)';
                         }
                         if(isset($row['Result2'])) {
-                            $subArray[] = ($row['Result2' ]== '0' ? 'Yes' : 'No');
+                            $subArray[] = ($row['Result2' ]== '1' ? 'Yes' : 'No');
                         } else {
                             $subArray[] = '(blank)';
                         }

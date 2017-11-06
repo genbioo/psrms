@@ -29,7 +29,7 @@ $evacDetails = getEvacDetails($idpInfo[0]['EvacID'])
             <?php includeNav(); ?>
             <div id="page-wrapper">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-lg-12">
                         <div class="well" id="accordion" style="margin-top: 20px;">
                             <?php
                             foreach($idpInfo as $result)

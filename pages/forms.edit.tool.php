@@ -44,6 +44,41 @@ if(!empty($questions)) {
                         <li class="breadcrumb-item active">Edit Assessment Tool</li>
                     </ol>
                 </div>
+                <?php
+                if(isset($_GET['status']) && $_GET['status'] == 'transsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Translations added successfully!
+                </div>
+                <?php
+                } else if (isset($_GET['status']) && $_GET['status'] == 'instrsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    New Instructions saved!
+                </div>
+                <?php
+                } else if (isset($_GET['status']) && $_GET['status'] == 'questsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Question edited succesfully!
+                </div>
+                <?php
+                } else if (isset($_GET['status']) && $_GET['status'] == 'titlesuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    New Title saved!
+                </div>
+                <?php
+                }
+                ?>
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-md-12">
@@ -146,6 +181,7 @@ if(!empty($questions)) {
                                                 <hr>
                                                 <div class="col-md-8">
                                                     <tr>
+                                                        <hr>
                                                         <td align="left" style="width:90%">
                                                             <p style="margin-bottom: 20px; margin-top: 20px;">
                                                                 <?php

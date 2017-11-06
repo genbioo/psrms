@@ -25,6 +25,17 @@ includeCore();
                         <li class="breadcrumb-item active">Assessment Tools</li>
                     </ol>
                 </div>
+                <?php
+                if(isset($_GET['status']) && $_GET['status'] == 'formsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Assessment tool successfuly saved!
+                </div>
+                <?php
+                }
+                ?>
                 <!-- /.row -->
                 <div class="row">
                     <div class="header">
