@@ -98,7 +98,6 @@ $evac_centers = getEvacuationCenters();
                                                         <option value="2">Married</option>
                                                         <option value="3">Annulled</option>
                                                         <option value="4">Widowed</option>
-                                                        <option>Not specified</option>
 
                                                     </select>             
                                                 </div>
