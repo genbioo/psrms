@@ -725,7 +725,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
 
         if($keyword != '')
         {
-            $query .= " AND FormType LIKE :keyword OR A.User LIKE :keyword ";
+            $query .= " AND form.FormType LIKE :keyword OR user.Lname LIKE :keyword OR user.Fname LIKE :keyword OR user.Mname LIKE :keyword ";
         }
 
         if($order != '')
