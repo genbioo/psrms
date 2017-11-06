@@ -49,18 +49,18 @@ if(!empty($questions)) {
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3><?php if(!empty($form_info)) { foreach ($form_info as $info) { echo($info['FormType']); }} ?></h3>
+                                <h3><?php if(!empty($form_info)) { foreach ($form_info as $info) { echo($info['FormType']); }} ?>
+                                    <button type="button" class="btn btn-info btn-fill btn-xs" onClick ="load_modal('title<?php echo($id); ?>')"><span class="fa fa-pencil"></span>Edit Title</button>
+                                <!-- this button is for a workaround in triggering the edit modal -->
+                                <!-- without this workaround, button needs to be clicked twice before modal shows -->
+                                <button class="btn btn-primary btn-lg" id="titleTrigger<?php echo($id); ?>" data-toggle="modal" data-target="#myModaltitle<?php echo($id); ?>" style="display:none"></button>
+                                </h3>
                                 </div>
                             <div class="panel-body">
                                     <div class="col-md-12">
                                         <h5>Instructions: <?php if(!empty($form_info)) { foreach ($form_info as $info) { echo($info['Instructions']); }} ?></h5>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-info btn-fill btn-xs" onClick ="load_modal('title<?php echo($id); ?>')"><span class="fa fa-pencil"></span>Edit Title</button>
-                                        <!-- this button is for a workaround in triggering the edit modal -->
-                                        <!-- without this workaround, button needs to be clicked twice before modal shows -->
-                                        <button class="btn btn-primary btn-lg" id="titleTrigger<?php echo($id); ?>" data-toggle="modal" data-target="#myModaltitle<?php echo($id); ?>" style="display:none"></button>
-
                                         <button type="button" class="btn btn-info btn-fill btn-xs" onClick ="load_modal('instr<?php echo($id); ?>')"><span class="fa fa-pencil"></span>Edit Instructions</button>
                                         <!-- this button is for a workaround in triggering the edit modal -->
                                         <!-- without this workaround, button needs to be clicked twice before modal shows -->
@@ -142,7 +142,8 @@ if(!empty($questions)) {
                                                     //$questTranslations["id25"]["translations"]["Filipino"] = "Ito ay isang halimbawa"
                                                     //-----Tokenization End------
                                             ?>
-                                            <table align="center" cellspacing="3" cellpadding="3" width="90%" class="table-hover table-responsive  table-striped">
+                                            <table align="center" cellspacing="3" cellpadding="3" width="90%" class="table-responsive">
+                                                <hr>
                                                 <div class="col-md-8">
                                                     <tr>
                                                         <td align="left" style="width:90%">
