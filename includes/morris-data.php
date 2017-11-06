@@ -2,20 +2,20 @@
 
 $total_male = get_total('idp where gender =1');
 $total_female = get_total('idp where gender =2');
-$total_children = get_total('idp WHERE Age < 18');
-$total_adults = get_total('idp WHERE Age >= 18 AND Age < 60');
-$total_senior = get_total('idp WHERE Age >= 60');
+// $total_children = get_total('idp WHERE Age < 18');
+// $total_adults = get_total('idp WHERE Age >= 18 AND Age < 60');
+// $total_senior = get_total('idp WHERE Age >= 60');
 $total_married =  get_total('idp WHERE MaritalStatus = 2');
 $total_single =  get_total('idp WHERE MaritalStatus = 1');
 $education_data = getDistinctEducation();
 $religion_data = getDistinctReligion();
 
-$total_male = get_total('idp where gender = 1');
-$total_female = get_total('idp where gender = 2');
-// $total_children = get_total('age', 'children');
-// $total_adults = get_total('age', 'adults');
-// $total_senior = get_total('age', 'senior');
-#$total_undefined = get_total('age', 'undefined'); <-- apila ni ug visualize cal
+// $total_male = get_total('idp where gender = 1');
+// $total_female = get_total('idp where gender = 2');
+$total_children = get_total('age', 'children');
+$total_adults = get_total('age', 'adults');
+$total_senior = get_total('age', 'senior');
+$total_undefined = get_total('age', 'undefined');
 
 if(!isset($_GET['evac_id']))
     {
@@ -76,6 +76,9 @@ else
    Morris.Donut({
         element: 'morris-donut2-chart',
         data: [{
+            label: "Undefined",
+            value: <?php echo $total_undefined; ?>
+        },{
             label: "Children",
             value: <?php echo $total_children; ?>
         }, {
@@ -157,6 +160,19 @@ else
              $education = $row['education'];
               
              $idp_count = $row['TOTAL'];
+
+             if($education <=6)
+             {
+              $education = "Grade School" ;
+             }
+             else if($education >=7 && $education <= 10)
+             {
+              $education = "Highschool" ;
+             }
+             else if($education >= 11)
+             {
+              $education = "College ";
+             }
              
         ?>
 
@@ -173,7 +189,7 @@ else
         xkey: 'period',
         ykeys: ['IDPS'],
         labels: ['IDPS'],
-        pointSize: 2,
+        pointSize: 4,
         hideHover: 'auto',
         resize: true,
        parseTime: false

@@ -36,7 +36,8 @@ $Barangays = getDistinctBarangay();
   </head>
   <body>
             <?php includeNav(); ?>
-                    <div id="map"></div>
+            
+              <div id="map"></div>
            
            <?php includeCommonJS(); ?>
   </body>
