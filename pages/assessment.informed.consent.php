@@ -30,11 +30,11 @@ if($_GET['from'] == 'intake')
     <body>
 
         <div id="wrapper">
-
-            <div id="exam-wrapper">
+            <?php includeNav(); ?>
+            <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <div class="well">
+                        <div class="well" style="margin-top: 20px;">
                             <form id="formInput"
                                   <?php
                                   if($_GET['from'] == 'intake')

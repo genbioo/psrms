@@ -13,7 +13,13 @@ $_SESSION['disaster_id'] = 1;
 
         <?php
         includeHead("PSRMS - IDP Assessment");
-        includeDataTables('advanced');
+        if($_SESSION['account_type'] == '77')
+        {
+            includeDataTables('advanced');
+        } else
+        {
+            includeDataTables();
+        }
         ?>
 
     </head>
@@ -98,11 +104,19 @@ $_SESSION['disaster_id'] = 1;
                         "targets": [4],
                         "orderable":false
                     },
-                ],
+                ]
+                <?php
+                if($_SESSION['account_type'] == '77')
+                {
+                ?>
+                    ,
                 "dom": 'Blfrtip',
                 "buttons": [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
+                <?php
+                }
+                ?>
             } );
         } );
         $('#table-idp-list').on('click', 'tbody tr', function() {

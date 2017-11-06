@@ -32,14 +32,13 @@ $evac_centers = getEvacuationCenters();
                     </ol>
                 </div>
                 <div class="row">
-                    <div class="header">
-                        <h3 class="title">&nbsp;Add Assessment Tool</h3>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <form action="/includes/actions/forms.process.add.tool.php" method="post" onsubmit="return check_empty()">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="title">&nbsp;Add Assessment Tool</h4>  
+                            </div>
+                            <div class="panel-body">
+                                <form action="/includes/actions/forms.process.add.tool.php" method="post" onsubmit="return check_empty()">
                         <div class="form-group">
                             <input type="text" name="formTitle" placeholder="Assessment tool name*" class="form-control">
                         </div>
@@ -66,12 +65,14 @@ $evac_centers = getEvacuationCenters();
                                 </div>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-info" onclick="add_more_questions()">Add more question</button>
-                                <input type="submit" class="btn btn-info" value="Submit">
+                                <button type="button" class="btn btn-success" onclick="add_more_questions()">Add more question</button>
+                                <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
                         </div>
-                    </form>
-
+                    </form>  
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

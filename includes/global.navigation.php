@@ -29,7 +29,7 @@
     </ul>
     <!-- /.navbar-top-links -->
 
-    <div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
@@ -54,7 +54,7 @@
                 if($_SESSION["account_type"] == '77') {
                 ?>
                 <li>
-                    <a href="user.enroll.php"><i class="fa fa-key fa-fw"></i> Account Management</a>
+                    <a href="user.list.php"><i class="fa fa-key fa-fw"></i> Account Management</a>
                 </li>
                 <li>
                     <a href="maps.php"><i class="fa fa-map-marker fa-fw"></i> Maps</a>

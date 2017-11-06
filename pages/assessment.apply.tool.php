@@ -22,10 +22,10 @@ $questionsResult = getAssessmentQuestions('Tool',$toolIDs);
     <body>
 
         <div id="wrapper">
-
-            <div id="exam-wrapper">
+            <?php includeNav(); ?>
+            <div id="page-wrapper">
                 <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
+                    <div class="col-lg-12" style="margin-top: 20px;">
                         <form action="/includes/actions/assessment.process.answers.tool.php?id=<?php echo($idpID); ?>" method="post">
                             <?php echo(displayQuestions($questionsResult, $form_info, $idpName)); ?>
                         <div class="col-md-12">
