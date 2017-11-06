@@ -65,8 +65,8 @@ $evac_centers = getEvacuationCenters();
                                 </div>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-info" onclick="add_more_questions()">Add more question</button>
-                                <input type="submit" class="btn btn-info" value="Submit">
+                                <button type="button" class="btn btn-success" onclick="add_more_questions()">Add more question</button>
+                                <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
                         </div>
                     </form>  

@@ -32,9 +32,6 @@ $evac_centers = getEvacuationCenters();
                     </ol>
                 </div>
                 <div class="row">
-                    <div class="header">
-                        <h3 class="title">&nbsp;IDP Enrollment</h3>
-                    </div>
                     <?php
                     if(isset($_GET['status']) && $_GET['status'] == 'success')
                     {
@@ -59,13 +56,15 @@ $evac_centers = getEvacuationCenters();
                 <div class="row">
                     <div class="col-md-12">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="title">&nbsp;IDP Enrollment</h4>  
+                        </div>
                         <form method="POST" action="/includes/actions/idp.process.enrollment.php">
                             <div class="panel-body">
                                 <div class="col-md-12">
                                     <div  id = "personal_info_div" class="col-lg-6">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading"><h6><b>Personal Information</b></h6></div>
-                                            <div class="panel-body panel-collapse collapse in" id="collapseOne">
+                                            <h5><b>Personal Information</b></h5>
+                                            <!-- <div class="panel-body panel-collapse collapse in" id="collapseOne"> -->
 
                                                 <div class="form-group col-md-6">
                                                     <input class="form-control" id = 'Lname' name='Lname' placeholder="Enter Last name">
@@ -181,18 +180,11 @@ $evac_centers = getEvacuationCenters();
                                                 <div class="form-group col-md-6">
                                                     <input class="form-control" id='Email' name='Email' placeholder="your@mail.com">
                                                 </div>
-
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                     <div id = "home_address_div">
                                         <div class="col-lg-6">
-                                            <div class="panel panel-default" id="accordion">
-                                                <div class="panel-heading"><h6><b>Home Address</b></h6></div>
-                                                <div class="panel-body panel-collapse collapse in" id="collapseTwo"> 
-
+                                                <h5><b>Home Address</b></h5>
                                                     <div class="form-group col-md-6">
                                                         <select name='province' id='province' class="form-control">
                                                             <option selected disabled>Province</option>
@@ -229,19 +221,12 @@ $evac_centers = getEvacuationCenters();
                                                     <div class="form-group col-md-6">
                                                         <input id="specAdd" class="form-control" name="SpecificAddress" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
                                                     </div>
-
-                                                </div>
-
-                                            </div>
                                         </div>
                                     </div>
 
                                     <div id = "relocation_div">
                                         <div class="col-lg-6">
-                                            <div class="panel panel-default" id="accordion">
-                                                <div class="panel-heading"><h6><b>Relocation Address</b></h6></div>
-                                                <div class="panel-body panel-collapse collapse in" id="collapseThree">
-
+                                                <h5><b>Relocation Address</b></h5>
                                                     <div class="form-group col-md-6">
                                                         <select class="form-control" name="EvacType" id="EvacType" >
                                                             <option selected disabled>Relocation Type</option>
@@ -300,16 +285,12 @@ $evac_centers = getEvacuationCenters();
                                                         </div>
 
                                                     </div>
-
-                                                </div>
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div><!-- panel body -->
-                            <div class="panel-footer">
-                                <input type="submit" class="btn btn-info btn-fill" value="Submit" style="margin-left: 20px;">
+                            <div class="panel-footer" style="background-color: #fff;">
+                                <input type="submit" class="btn btn-primary btn-fill" value="Submit" style="margin-left: 20px;">
                             </div><!-- panel footer -->
                         </form>
                     </div>
