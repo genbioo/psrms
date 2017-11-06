@@ -50,24 +50,6 @@ $intakeCount = getIntakeCount($id);
                         <li class="breadcrumb-item active">IDP Assessment History</li>
                     </ol>
                 </div>
-                <div class="row">
-                    <div class="header">
-                        <h3 class="title"><?php echo($idp[0]['IDPName']); ?>&nbsp;
-                            <?php
-                            if($_SESSION['account_type'] == '77')
-                            {
-                            ?>
-                            <sup>
-                                <a type="button" class="btn btn-success btn-xs" href="idp.details.php?id=<?php echo($id); ?>">
-                                    <i class="fa fa-info-circle">&nbsp;Info</i>
-                                </a>
-                            </sup>
-                            <?php
-                            }
-                            ?>
-                        </h3>
-                    </div>
-                </div>
                 <?php
                 if(isset($_GET['status']) && $_GET['status'] == 'intakesuccess')
                 {
@@ -93,8 +75,34 @@ $intakeCount = getIntakeCount($id);
                     An error occured during the process. If this issue persists, please contact the system admin.
                 </div>
                 <?php
+                } else if (isset($_GET['status']) && $_GET['status'] == 'updatetoolsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Answers successfully updated.
+                </div>
+                <?php
                 }
                 ?>
+                <div class="row">
+                    <div class="header">
+                        <h3 class="title"><?php echo($idp[0]['IDPName']); ?>&nbsp;
+                            <?php
+                            if($_SESSION['account_type'] == '77')
+                            {
+                            ?>
+                            <sup>
+                                <a type="button" class="btn btn-success btn-xs" href="idp.details.php?id=<?php echo($id); ?>">
+                                    <i class="fa fa-info-circle">&nbsp;Info</i>
+                                </a>
+                            </sup>
+                            <?php
+                            }
+                            ?>
+                        </h3>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">

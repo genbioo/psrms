@@ -326,15 +326,15 @@ $evac_centers = getEvacuationCenters();
     <script type='text/javascript'>
         $(document).ready(function(){
             $('#Education').change(function(){
-                if ($(this).val() == 'elementary') {
+                if ($(this).val() == '20') {
                     $('#elementary1').show();
                     $('#highschool1').hide();
                     $('#college1').hide();
-                } else if ($(this).val() == 'highschool') {
+                } else if ($(this).val() == '21') {
                     $('#elementary1').hide();
                     $('#highschool1').show();
                     $('#college1').hide();       
-                } else if ($(this).val() == 'college') {
+                } else if ($(this).val() == '22') {
                     $('#elementary1').hide();
                     $('#highschool1').hide();
                     $('#college1').show();       
