@@ -382,4 +382,176 @@ function generateEditInterface($questions, $form_info)
     return ob_get_clean();
 }
 #---- edit tool functions end ----
+
+#---- view answer functions ----
+function displayAnswers($questionsResult, $formInfo, $formAnswersID)
+{
+    $questTranslations = [];
+    $questions = [];
+    $languages = [];
+    $itemStart = 0;
+    ob_start();
+?>
+<?php
+    if(!empty($formInfo)) {                
+        foreach($formInfo as $form) {
+            foreach($questionsResult as $result) {
+                if($result["FORM_FormID"] == $form["FormID"]) {
+                    $questions[] = $result;
+                }
+            }
+            if(!empty($questions[0]["Question"])) {
+                $arr = explode("[", $questions[0]["Question"]);
+                foreach($arr as $translation) {
+                    if (!(strpos($translation, ']') !== false)) {
+                        if(!in_array("Original", $languages, true)) {
+                            array_push($languages, "Original");
+                        }
+                    } else {
+                        $translation = explode("]", $translation, 2);
+                        if(!in_array($translation[0], $languages, true)) {
+                            array_push($languages, $translation[0]);
+                        }
+                    }
+                }
+
+                unset($arr);
+            }
+?>
+<div class="panel-heading">
+    <div class="col-md-10">
+        <h4><?php if(!empty($form)) echo($form['FormType']); ?></h4>
+    </div>
+    <label for="languageSelect">Translation:</label>
+    <div class="col-md-2" id="languageSelect">
+        <select id="languages" class="form-control" onchange='showDiv(this,<?php echo($form['FormID']) ?>,<?php echo(json_encode($languages)); ?>)'>
+            <?php
+    foreach($languages as $language) {
+            ?>
+            <option value='<?php echo($language); ?>'><?php echo($language); ?></option>
+            <?php
+    }
+            ?>
+        </select>
+    </div>
+</div>
+<div class="panel-body" style="padding: 20px; 50px;">
+    <p style="margin: 10px 40px;">
+        Current IDP: <b><?php if(!empty($form)) echo($form['IDPName']); ?></b><br>
+    </p>
+    <p style="margin: 20px 40px;"><b>Instructions: </b><?php if(!empty($form)) echo($form['Instructions']); ?></p>
+    <div class="form-group" style="padding: 20px; 50px;">
+        <p><b>Questions:</b></p>
+        <form action="/includes/actions/assessment.process.update.answers.tool.php?id=<?php echo($form["FormID"]); ?>&faid=<?php echo($formAnswersID); ?>" method="post">
+                <?php
+            if(!empty($questions)) {
+                ?>
+                <?php
+                foreach ($questions as $result) {
+                    $questTranslations = array_merge($questTranslations, array("id".$result['QuestionsID'] => array("translations" => array())));
+                    $arr = explode("[", $result['Question']);
+                    foreach($arr as $translation) {
+                        if (!(strpos($translation, ']') !== false)) {
+                            $questTranslations["id".$result['QuestionsID']]["translations"] = array_merge($questTranslations["id".$result['QuestionsID']]["translations"], array("Original" => $translation));
+                        } else {
+                            $translation = explode("]", $translation, 2);
+                            $questTranslations["id".$result['QuestionsID']]["translations"] = array_merge($questTranslations["id".$result['QuestionsID']]["translations"], array($translation[0] => $translation[1]));
+                        }
+                    }
+                ?>
+                <div class="col-lg-12">
+                    <div class="col-lg-10">
+                        <?php
+                    foreach($questTranslations["id".$result['QuestionsID']]["translations"] as $key => $translation) {
+                        echo('<div name="'.$key.'-'.$form['FormID'].'"><p>'.nl2br(htmlspecialchars($translation)).'</p></div>');
+                    }
+                        ?>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-10" id="preview-wrapper<?php echo($result['QuestionsID']); ?>" >
+                        <?php 
+                    if(isset($result['FormType'])) {
+                        echo '<fieldset id="q-a-'.$result['QuestionsID'].'">';
+                        echo '<input type="hidden" name="q-'.$form['FormID'].'-1-'.$result['QuestionsID'].'" value="'.$result['QuestionsID'].'">';
+                        if(isset($result['AnswerRange'])) {
+                            for($i = $itemStart; $i < $result['AnswerRange'] + $itemStart; $i++) {
+                                if($result['Answer'] != '')
+                                {
+                                    if($result['Answer'] == $i)
+                                    {
+                                        echo'<label class="'.$result['FormType'].'-inline"><input type="'.$result['FormType'].'" name="'.$form['FormID'].'-1-'.$result['QuestionsID'].'-'.$result['AnswerID'].'" value="'.$i.'" checked="checked">'.$i.'</label>';
+                                    } else
+                                    {
+                                        echo'<label class="'.$result['FormType'].'-inline"><input type="'.$result['FormType'].'" name="'.$form['FormID'].'-1-'.$result['QuestionsID'].'-'.$result['AnswerID'].'" value="'.$i.'">'.$i.'</label>';
+                                    }
+                                } else
+                                {
+
+                                    echo'<label class="'.$result['FormType'].'-inline"><input type="'.$result['FormType'].'" name="'.$form['FormID'].'-1-'.$result['QuestionsID'].'-new" value="'.$i.'">'.$i.'</label>';
+
+                                }
+                            }
+                        } else {
+                            if($result['FormType'] === "textarea") {
+                                if($result['Answer'] != '')
+                                {
+                                    echo '<textarea class="form-control" rows="5" id="comment" name="'.$form['FormID'].'-2-'.$result['QuestionsID'].'-'.$result['AnswerID'].'">'.$result['Answer'].'</textarea>';
+                                } else
+                                {
+                                    echo '<textarea class="form-control" rows="5" id="comment" name="'.$form['FormID'].'-2-'.$result['QuestionsID'].'-new"></textarea>';
+                                }
+                            } else if($result['FormType'] === "text") {
+                                if($result['Answer'] != '')
+                                {
+                                    echo '<input class="form-control" id="inputdefault" type="'.$result['FormType'].'" name="'.$form['FormID'].'-2-'.$result['QuestionsID'].'-'.$result['AnswerID'].'" value="'.$result['Answer'].'">';
+                                } else
+                                {
+                                    echo '<input class="form-control" id="inputdefault" type="'.$result['FormType'].'" name="'.$form['FormID'].'-2-'.$result['QuestionsID'].'-new">';
+                                }
+                            }
+                        }
+                        echo '</fieldset>';
+                    }
+                        ?>
+                        <hr>
+                    </div>
+                </div>
+                <?php
+                }
+            } else { ?>
+                <table align="center" cellspacing="3" cellpadding="3" width="90%" class="table-responsive">
+                    <tr>
+
+                        <td align="left">
+                            <h4>No questions for this form yet!</h4>
+                        </td>
+
+                    </tr>
+                </table>
+                <?php
+            }
+            unset($questions);
+            unset($questTranslations);
+            unset($languages);
+
+            $questions = [];
+            $questTranslations = [];
+            $languages = []; 
+
+        }
+
+    }
+            ?>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button id="btn-submit-form" class="btn btn-primary btn-sm" type="submit" style="float:right"><i class="fa fa-check"></i>&nbsp;Update</button>
+                </div>   
+            </div>
+        </form>
+    </div>
+</div>
+<?php
+}
+return ob_get_clean();
 ?>

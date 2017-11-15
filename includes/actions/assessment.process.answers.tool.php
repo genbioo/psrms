@@ -82,7 +82,7 @@ foreach($idp_form_answers_id as $key1 => $item1) {
             $query .= $item2.",";
         }
     }
-    $query .= "' WHERE `form_answers`.`FORM_ANSWERS_ID` = ".$arr1[1].";";
+    $query .= "' WHERE `form_answers`.`FORM_ANSWERS_ID` = ".$idp_form_answers_id.";";
 }
 //-------------------------------------------------------
 
