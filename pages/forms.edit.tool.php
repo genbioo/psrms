@@ -77,6 +77,14 @@ if(!empty($questions)) {
                     New Title saved!
                 </div>
                 <?php
+                } else if (isset($_GET['status']) && $_GET['status'] == 'layoutsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    New Layout saved!
+                </div>
+                <?php
                 }
                 ?>
                 <!-- /.row -->
@@ -275,7 +283,7 @@ if(!empty($questions)) {
                                                     <td class="align-bottom">
                                                         <div class="col-md-12">
                                                             <button type="submit" onClick="ChangeTarget('sme')" class="btn btn-primary btn-fill btn-md" style="float: right;"><i class="fa fa-floppy-o"></i>&nbsp;Save Layout</button>
-                                                            <!--<button type="submit" onClick="ChangeTarget('new')" class="btn btn-secondary btn-fill btn-md" style="float: right; margin-right:5px;" disabled><i class="fa fa-eye"></i>&nbsp;Preview</button>-->
+                                                            <button type="submit" onClick="ChangeTarget('new')" class="btn btn-secondary btn-fill btn-md" style="float: right; margin-right:5px;"><i class="fa fa-eye"></i>&nbsp;Preview</button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -354,7 +362,7 @@ if(!empty($questions)) {
         function ChangeTarget(loc) {
             if(loc=="new") {
                 document.getElementById('form-layout').target="_blank";
-                document.getElementById('form-layout').action="/includes/actions/preview_form_layout.php";
+                document.getElementById('form-layout').action="forms.preview.layout.php";
             } else {
                 document.getElementById('form-layout').target="";
                 document.getElementById('form-layout').action="/includes/actions/forms.process.layout.php";
