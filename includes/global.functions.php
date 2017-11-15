@@ -295,7 +295,7 @@ function getEvacDetails($evacID = '')
 function getExtensiveEvacDetails($evacID = '')
 {
     $db_handle = new DBController();
-    $db_handle->prepareStatement("SELECT * FROM evacuation_centers WHERE evacuation_centers.EvacuationCentersID = :evacID");
+    $db_handle->prepareStatement("SELECT evacuation_centers.EvacuationCentersID, evacuation_centers.EvacName, evacuation_centers.EvacAddress, evacuation_centers.EvacType, evacuation_centers.EvacManager, evacuation_centers.EvacManagerContact, evacuation_centers.SpecificAddress, city_mun.City_Mun_ID, city_mun.City_Mun_Name, province.ProvinceID, province.ProvinceName FROM evacuation_centers LEFT JOIN barangay ON barangay.BarangayID = evacuation_centers.EvacAddress LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID LEFT JOIN province ON province.ProvinceID = city_mun.PROVINCE_ProvinceID WHERE evacuation_centers.EvacuationCentersID = :evacID");
     $db_handle->bindVar(':evacID', $evacID, PDO::PARAM_INT,0);
     
     $result = $db_handle->runFetch();

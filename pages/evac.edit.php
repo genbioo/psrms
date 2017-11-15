@@ -62,35 +62,35 @@ $barangays = getBarangays();
                                                     <?php
                                                     foreach ($provinces as $result) {
                                                     ?>
-                                                    <option value="<?php echo($result['ProvinceID']); ?>"><?= $result['ProvinceName']; ?></option>
+                                                    <option value="<?php echo($result['ProvinceID']); ?>" <?php echo(($result['ProvinceID'] == $evacInfo[0]['ProvinceID'] ? 'selected="selected"' : '')) ?>><?php echo($result['ProvinceName']); ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <select name="city_mun2" id="city_mun2" class="form-control" style="display:none">
+                                                <select name="city_mun2" id="city_mun2" class="form-control">
                                                     <option selected disabled>City/Municipality</option>
                                                     <?php
                                                     foreach ($cities as $result) {
                                                     ?>
-                                                    <option value="<?php echo($result['City_Mun_ID']); ?>" name="province2-<?php echo($result['ProvinceID']); ?>"><?php echo($result['City_Mun_Name']); ?></option>
+                                                    <option value="<?php echo($result['City_Mun_ID']); ?>" name="province2-<?php echo($result['ProvinceID']); ?>"<?php echo(($result['City_Mun_ID'] == $evacInfo[0]['City_Mun_ID'] ? 'selected="selected"' : '')) ?>><?php echo($result['City_Mun_Name']); ?></option>
                                                     <?php } ?>
                                                 </select>  
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <select name="Barangay" id="Barangay" class="form-control" style="display:none">
+                                                <select name="Barangay" id="Barangay" class="form-control">
                                                     <option selected disabled>Barangay</option>
                                                     <?php
                                                     foreach ($barangays as $result) {
                                                     ?>
-                                                    <option value="<?php echo($result['BarangayID']); ?>" name="city2-<?php echo($result['City_CityID']) ?>"><?php echo($result['BarangayName']); ?></option>
+                                                    <option value="<?php echo($result['BarangayID']); ?>" name="city2-<?php echo($result['City_CityID']) ?>"<?php echo(($result['BarangayID'] == $evacInfo[0]['EvacAddress'] ? 'selected="selected"' : '')) ?>><?php echo($result['BarangayName']); ?></option>
                                                     <?php } ?>
                                                 </select> 
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <input id="specAdd" class="form-control" name="SpecificAddress" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
+                                                <input id="specAdd" class="form-control" name="SpecificAddress" placeholder="Specific address (optional)" type="textbox">
                                             </div>
 
                                             <div class="form-group col-md-12">
