@@ -4,6 +4,7 @@ includeCore();
 
 $id = $_GET['id'];
 $idpDetails = getIDPExtensiveDetails($id);
+#die(print_r($idpDetails));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +64,23 @@ $idpDetails = getIDPExtensiveDetails($id);
                         </p>
                         <p>
                             <b>Age:&nbsp;</b>
-                            <abbr title="automatically generated"><?php echo(calculateAge($idpDetails[0]['Bdate'])); ?></abbr>
+                            <?php
+                                $age = calculateAge($idpDetails[0]['Bdate']);
+                                if($age == 'N/A')
+                                {
+                                    if(isset($idpDetails[0]['Age']))
+                                    {
+                                        echo($idpDetails[0]['Age']);
+                                    }
+                                    else
+                                    {
+                                        echo('<abbr title="no birthdate or age specified">N/A</abbr>');
+                                    }
+                                } else
+                                {
+                                    echo('<abbr title="automatically generated">'.$age.'</abbr>');
+                                }
+                            ?>
                         </p>
                         <p>
                             <b>Ethnicity:&nbsp;</b><u><?php echo(($idpDetails[0]['Ethnicity'] != '' ? $idpDetails[0]['Ethnicity'] : 'unspecified' )); ?></u>

@@ -34,6 +34,25 @@ $resultItems = getAnswers($formAnswersID, 'tool');
                         <li class="breadcrumb-item active">View Assessment Tool Answers</li>
                     </ol>
                 </div>
+                <?php
+                if(isset($_GET['status']) && $_GET['status'] == 'updatetoolsuccess')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Answers updated!
+                </div>
+                <?php
+                } else if(isset($_GET['status']) && $_GET['status'] == 'updatetoolempty')
+                {
+                ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Error!
+                </div>
+                <?php
+                }
+                ?>
                 <div class="row">
                     <?php echo(displayAnswers($resultItems, $resultInfo, $formAnswersID)); ?>
                 </div>

@@ -923,7 +923,20 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 $subArray[] = $row["IDP_ID"];
                 $subArray[] = $row["Gender"];
                 $age = calculateAge($row["Bdate"]);
-                $subArray[] = $age;
+                if($age == 'N/A')
+                {
+                    if(isset($row["Age"]))
+                    {
+                        $subArray[] = $row["Age"];
+                    }
+                    else
+                    {
+                        $subArray[] = $age;
+                    }
+                } else
+                {
+                    $subArray[] = $age;
+                }
                 
                 $ageGroup = getAgeGroup($row["IDP_ID"]);
                 if($row['intake_answersID'] == 0) {
