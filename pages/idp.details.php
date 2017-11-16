@@ -31,6 +31,17 @@ $idpDetails = getIDPExtensiveDetails($id);
                         <li class="breadcrumb-item active">IDP Details</li>
                     </ol>
                 </div>
+                <?php
+                if(isset($_GET['status']) && $_GET['status'] == 'success')
+                {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Save successful!
+                </div>
+                <?php
+                }
+                ?>
                 <div class="row">
                     <div class="header">
                         <h3 class="title"><?php echo($idpDetails[0]['IDPName']); ?>&nbsp;
