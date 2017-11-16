@@ -1,7 +1,7 @@
 <?php
 include("../../initialize.php");
 includeCore();
-
+#die(print_r($_POST));
 $idpID = $_GET['id'];
 $db_handle = new DBController();
 $post = $_POST;
@@ -22,21 +22,21 @@ foreach($post as $key => $result) {
         $keys1 = explode('-',$key);
         //question key format => q-(formID)-(answerType)-(questionID) ex: q-17-1-397
         $question_ids[$keys1[1]."-".$keys1[3]] = $result; //set question id as array index for easier finding later
-    } else {
-        $keys2 = explode('-',$key);
 
         //add query for idp_form_answers insertion. The ID of idp_form_answers is an fk for answers_quali and answers_quanti
-        if(!in_array($keys2[0], $formIDs, true)) {
-            $formIDs[$keys2[0]] = $keys2[0];
+        if(!in_array($keys1[1], $formIDs, true)) {
+            $formIDs[$keys1[1]] = $keys1[1];
             $db_handle->prepareStatement("INSERT INTO `form_answers` (`FORM_ANSWERS_ID`, `USER_UserID`, `FORM_FormID`, `DateTaken`, `IDP_IDP_ID`, `UnansweredItems`) VALUES (NULL, :userID, :formID, CURRENT_TIMESTAMP, :idpID, NULL);");
             $db_handle->bindVar(':userID', $_SESSION['UserID'], PDO::PARAM_INT,0);
-            $db_handle->bindVar(':formID', $keys2[0], PDO::PARAM_INT,0);
+            $db_handle->bindVar(':formID', $keys1[1], PDO::PARAM_INT,0);
             $db_handle->bindVar(':idpID', $idpID, PDO::PARAM_INT,0);
             $db_handle->runUpdate();
             //store the auto-incremented id for use in update. Unanswered questions will be updated after this foreach
             $tempID = $db_handle->getLastInsertID();
-            $idp_form_answers_id[$keys2[0]] = $tempID;
+            $idp_form_answers_id[$keys1[1]] = $tempID;
         }
+    } else {
+        $keys2 = explode('-',$key);
         //add query for answers_quali and answers_quanti
         $answeredQuestions[$keys2[2]] = $keys2[2]; //set question id as array index for easier finding later
         if(isset($result) && $keys2[1] == 1) {
@@ -82,7 +82,7 @@ foreach($idp_form_answers_id as $key1 => $item1) {
             $query .= $item2.",";
         }
     }
-    $query .= "' WHERE `form_answers`.`FORM_ANSWERS_ID` = ".$idp_form_answers_id.";";
+    $query .= "' WHERE `form_answers`.`FORM_ANSWERS_ID` = ".$item1.";";
 }
 //-------------------------------------------------------
 

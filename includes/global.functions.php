@@ -1014,7 +1014,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 if(!isset($row['UnansweredItems']) || $row['UnansweredItems'] == '') {
                     $subArray[] = $row["Score"];
                 } else {
-                    $subArray[] = 'partial: '.$row["Score"];
+                    $subArray[] = $row["Score"]; //'partial: '.
                 }
 
                 if(isset($row['Assessment'])) {
