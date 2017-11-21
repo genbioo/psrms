@@ -150,11 +150,12 @@ if(isset($_POST["isIntake"])) {
                                             <td align="left" style="width:90%" name="no">
                                                 <p>
                                                     <?php
-                                            foreach($questTranslations["id".$qid]["translations"] as $key => $translation) {
-                                                //echo($key.": ".$translation."<br>");
-                                                echo('<div name="'.$key.'">'.$translation."</div>");
-                                            }
+                                                    /*foreach($questTranslations["id".$qid]["translations"] as $key => $translation) {
+                                                        //echo($key.": ".$translation."<br>");
+                                                        echo('<div name="'.$key.'">'.$translation."</div>");
+                                                    }*/
                                                     ?>
+                                                    <div><?php echo($questTranslations["id".$qid]["translations"]['Original']); ?></div>
                                                 </p>
                                             </td>
                                         </tr>

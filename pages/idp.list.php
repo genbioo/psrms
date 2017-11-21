@@ -81,14 +81,6 @@ $_SESSION['disaster_id'] = 1;
                 $("#modalToggle").click();
             });
         }
-        function printDiv(clickedID) {
-            var divToPrint=document.getElementById('myModal' + clickedID);
-            var newWin=window.open('','Print-Window');
-            newWin.document.open();
-            newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
-            newWin.document.close();
-            setTimeout(function(){newWin.close();},10);
-        }
         $(document).ready(function() {
             var dataTable = $('#table-idp-list').DataTable( {
                 "responsive": true,
@@ -103,7 +95,7 @@ $_SESSION['disaster_id'] = 1;
                     {
                         "targets": [4],
                         "orderable":false
-                    },
+                    }
                 ]
                 <?php
                 if($_SESSION['account_type'] == '77')
@@ -112,7 +104,30 @@ $_SESSION['disaster_id'] = 1;
                     ,
                 "dom": 'Blfrtip',
                 "buttons": [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                        }
+                    },
                 ]
                 <?php
                 }

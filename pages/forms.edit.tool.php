@@ -189,7 +189,6 @@ if(!empty($questions)) {
                                                 <hr>
                                                 <div class="col-md-8">
                                                     <tr>
-                                                        <hr>
                                                         <td align="left" style="width:90%">
                                                             <p style="margin-bottom: 20px; margin-top: 20px;">
                                                                 <?php
