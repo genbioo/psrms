@@ -295,7 +295,7 @@ function getEvacDetails($evacID = '')
 function getExtensiveEvacDetails($evacID = '')
 {
     $db_handle = new DBController();
-    $db_handle->prepareStatement("SELECT * FROM evacuation_centers WHERE evacuation_centers.EvacuationCentersID = :evacID");
+    $db_handle->prepareStatement("SELECT evacuation_centers.EvacuationCentersID, evacuation_centers.EvacName, evacuation_centers.EvacAddress, evacuation_centers.EvacType, evacuation_centers.EvacManager, evacuation_centers.EvacManagerContact, evacuation_centers.SpecificAddress, city_mun.City_Mun_ID, city_mun.City_Mun_Name, province.ProvinceID, province.ProvinceName FROM evacuation_centers LEFT JOIN barangay ON barangay.BarangayID = evacuation_centers.EvacAddress LEFT JOIN city_mun ON city_mun.City_Mun_ID = barangay.City_CityID LEFT JOIN province ON province.ProvinceID = city_mun.PROVINCE_ProvinceID WHERE evacuation_centers.EvacuationCentersID = :evacID");
     $db_handle->bindVar(':evacID', $evacID, PDO::PARAM_INT,0);
     
     $result = $db_handle->runFetch();
@@ -426,9 +426,19 @@ function getIntakeInfo($id = '')
 function getAgeGroup($id = '')
 {
     $db_handle = new DBController();
-    $db_handle->prepareStatement("SELECT (CASE WHEN (Age > 18) THEN '2' ELSE '1' END) AS AgeGroup FROM `idp` WHERE idp.IDP_ID = :id");
+    $db_handle->prepareStatement("SELECT idp.Bdate FROM idp WHERE idp.IDP_ID = :id");
     $db_handle->bindVar(':id', $id, PDO::PARAM_INT,0);
-    $ageGroup = $db_handle->runFetch();
+    $bDate = $db_handle->runFetch()[0]['Bdate'];
+    
+    $age = calculateAge($bDate);
+    
+    if($age > 18)
+    {
+        $ageGroup = 2;
+    } else
+    {
+        $ageGroup = 1;
+    }
 
     return $ageGroup;
 }
@@ -451,7 +461,7 @@ function getAnswerInfo($faID='', $type='')
         $db_handle->prepareStatement("SELECT INTAKE_ANSWERS_ID, CONCAT(idp.Lname,', ',idp.Fname,' ',idp.Mname) as IDPName, CONCAT(user.Lname,', ', user.Fname, ' ', user.Mname) as UserResponsible, intake_answers.Date_taken FROM intake_answers JOIN idp on IDP_IDP_ID = idp.IDP_ID JOIN user on intake_answers.USER_UserID = user.UserID JOIN intake on intake.IntakeID = intake_answers.INTAKE_IntakeID WHERE intake_answers.INTAKE_ANSWERS_ID = :faID");
     } else if($type == 'tool')
     {
-        $db_handle->prepareStatement("SELECT FORM_ANSWERS_ID, form.FormType, form.Instructions, CONCAT(idp.Lname,', ',idp.Fname,' ',idp.Mname) as IDPName, CONCAT(user.Lname,', ', user.Fname, ' ', user.Mname) as UserResponsible, form_answers.UnansweredItems, form_answers.DateTaken FROM form_answers JOIN idp on IDP_IDP_ID = idp.IDP_ID JOIN user on form_answers.USER_UserID = user.UserID JOIN form on form.FormID = form_answers.FORM_FormID WHERE form_answers.FORM_ANSWERS_ID = :faID");
+        $db_handle->prepareStatement("SELECT FORM_ANSWERS_ID, form.FormID, form.FormType, form.Instructions, CONCAT(idp.Lname,', ',idp.Fname,' ',idp.Mname) as IDPName, CONCAT(user.Lname,', ', user.Fname, ' ', user.Mname) as UserResponsible, form_answers.UnansweredItems, form_answers.DateTaken FROM form_answers JOIN idp on IDP_IDP_ID = idp.IDP_ID JOIN user on form_answers.USER_UserID = user.UserID JOIN form on form.FormID = form_answers.FORM_FormID WHERE form_answers.FORM_ANSWERS_ID = :faID");
     }
     $db_handle->bindVar(':faID', $faID, PDO::PARAM_INT,0);
     
@@ -498,6 +508,7 @@ function getAnswers($faID='', $type='')
     {
         $db_handle->prepareStatement("SELECT
             form_answers.FORM_ANSWERS_ID,
+            form_answers.FORM_FormID,
             questions.QuestionsID,
             questions.Question,
             html_form.HTML_FORM_TYPE AS FormType,
@@ -725,7 +736,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
 
         if($keyword != '')
         {
-            $query .= " AND FormType LIKE :keyword OR A.User LIKE :keyword ";
+            $query .= " AND form.FormType LIKE :keyword ";
         }
 
         if($order != '')
@@ -912,14 +923,28 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 $subArray[] = $row["IDP_ID"];
                 $subArray[] = $row["Gender"];
                 $age = calculateAge($row["Bdate"]);
-                $subArray[] = $age;
+                if($age == 'N/A')
+                {
+                    if(isset($row["Age"]))
+                    {
+                        $subArray[] = $row["Age"];
+                    }
+                    else
+                    {
+                        $subArray[] = $age;
+                    }
+                } else
+                {
+                    $subArray[] = $age;
+                }
                 
+                $ageGroup = getAgeGroup($row["IDP_ID"]);
                 if($row['intake_answersID'] == 0) {
                     $subArray[] = 
                         '<a class="btn btn-info btn-sm btn-block" href="idp.assessment.history.php?id='.$row["IDP_ID"].'">
                             <i class="pe-7s-info"></i>Assessment History
                         </a>
-                        <a href="assessment.informed.consent.php?id='.$row["IDP_ID"].'&ag='.$row["age_group"].'&from=intake" class="btn btn-success btn-xs btn-block">
+                        <a href="assessment.informed.consent.php?id='.$row["IDP_ID"].'&ag='.$ageGroup.'&from=intake" class="btn btn-success btn-xs btn-block">
                             <i class="icon_check_alt"></i>Apply Intake
                         </a>';
                 } 
@@ -929,7 +954,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                         '<a class="btn btn-info btn-sm btn-block" href="idp.assessment.history.php?id='.$row["IDP_ID"].'">
                             <i class="pe-7s-info"></i>Assessment History
                          </a>
-                         <a href="assessment.informed.consent.php?id='.$row["IDP_ID"].'&ag='.$row["age_group"].'&from=intake" class="btn btn-success btn-xs btn-block">
+                         <a href="assessment.informed.consent.php?id='.$row["IDP_ID"].'&ag='.$ageGroup.'&from=intake" class="btn btn-success btn-xs btn-block">
                             <i class="icon_check_alt"></i>Apply Intake
                          </a>
                          <a href="assessment.select.forms.php?id='.$row["IDP_ID"].'" class="btn btn-primary btn-xs btn-block">
@@ -989,7 +1014,7 @@ function getList($data, $listType = 'IDP', $listTarget = '')
                 if(!isset($row['UnansweredItems']) || $row['UnansweredItems'] == '') {
                     $subArray[] = $row["Score"];
                 } else {
-                    $subArray[] = 'partial: '.$row["Score"];
+                    $subArray[] = $row["Score"]; //'partial: '.
                 }
 
                 if(isset($row['Assessment'])) {

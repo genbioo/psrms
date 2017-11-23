@@ -4,7 +4,7 @@ includeCore();
 
 $_SESSION['idpID'] = $_GET['id'];
 $id = $_GET['id'];
-$ag = getAgeGroup($id)[0]['AgeGroup'];
+$ag = getAgeGroup($id);
 
 $idp = getIDPExtensiveDetails($id);
 $intakeCount = getIntakeCount($id);

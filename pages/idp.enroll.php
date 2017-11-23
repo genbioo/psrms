@@ -55,244 +55,249 @@ $evac_centers = getEvacuationCenters();
 
                 <div class="row">
                     <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="title">&nbsp;IDP Enrollment</h4>  
-                        </div>
-                        <form method="POST" action="/includes/actions/idp.process.enrollment.php">
-                            <div class="panel-body">
-                                <div class="col-md-12">
-                                    <div  id = "personal_info_div" class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="title">&nbsp;IDP Enrollment</h4>  
+                            </div>
+                            <form method="POST" action="/includes/actions/idp.process.enrollment.php">
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div  id = "personal_info_div" class="col-lg-6">
                                             <h5><b>Personal Information</b></h5>
                                             <!-- <div class="panel-body panel-collapse collapse in" id="collapseOne"> -->
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" id = 'Lname' name='Lname' placeholder="Enter Last name">
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" id = 'Lname' name='Lname' placeholder="Enter Last name">
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name='Fname' placeholder="Enter First name">
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='Fname' placeholder="Enter First name">
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name='Mname' placeholder="Enter Middle Name">
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='Mname' placeholder="Enter Middle Name">
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input type="date" name='Bdate' class="form-control">
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="date" name='Bdate' class="form-control">
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <select name='Gender' class="form-control">
-                                                        <option selected disabled>Gender</option>
-                                                        <option value="1">Male</option>
-                                                        <option value="2">Female</option>
-                                                        <option>Not specified</option>
-                                                    </select>             
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='Age' placeholder="Enter age" type="number" min="0">
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <select name='MaritalStatus' class="form-control">
-                                                        <option selected disabled>Marital Status</option>
-                                                        <option value="1">Single</option>
-                                                        <option value="2">Married</option>
-                                                        <option value="3">Annulled</option>
-                                                        <option value="4">Widowed</option>
+                                            <div class="form-group col-md-6">
+                                                <select name='Gender' class="form-control">
+                                                    <option selected disabled>Gender</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option>Not specified</option>
+                                                </select>             
+                                            </div>
 
-                                                    </select>             
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <select name='MaritalStatus' class="form-control">
+                                                    <option selected disabled>Marital Status</option>
+                                                    <option value="1">Single</option>
+                                                    <option value="2">Married</option>
+                                                    <option value="3">Annulled</option>
+                                                    <option value="4">Widowed</option>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name='Ethnicity' placeholder="Enter Ethnicity">           
-                                                </div>
+                                                </select>             
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name='Religion' placeholder="Enter Religion">        
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='Ethnicity' placeholder="Enter Ethnicity">           
+                                            </div>
 
-                                                <div class="form-group col-md-12">
-                                                    <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='Religion' placeholder="Enter Religion">        
+                                            </div>
 
-                                                        <div class="col-md-6">
-                                                            <select class="form-control" id="Education" name="Education">
-                                                                <option selected disabled>Educational Attainment</option>
-                                                                <option value="20">Elementary</option>
-                                                                <option value="21">Highschool</option>
-                                                                <option value="22">College</option>
-                                                                <option>Not Specified</option>
-                                                            </select>
-                                                        </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name="Occupation" placeholder="Enter occupation">
+                                            </div>
 
-                                                        <div class="col-md-6">
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name='PhoneNum' placeholder="Enter phone number" id = "PhoneNum">
+                                            </div>
 
-                                                            <select class="form-control" name='education' id="elementary1" style="display: none;">
-                                                                <option selected disabled>Level</option>
-                                                                <option value="1">Grade 1</option>
-                                                                <option value="2">Grade 2</option>
-                                                                <option value="3">Grade 3</option>
-                                                                <option value="4">Grade 4</option>
-                                                                <option value="5">Grade 5</option>
-                                                                <option value="6">Grade 6</option>
-                                                                <option value="7">Elementary Graduate</option>
-                                                                <option>Not Specified</option>
-                                                            </select>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" id='Email' name='Email' placeholder="your@mail.com">
+                                            </div>
 
-                                                            <select class="form-control" name='education' id="highschool1" style="display: none;">
-                                                                <option selected disabled>Level</option>
-                                                                <option value="8">Grade 7</option>
-                                                                <option value="9">Grade 8</option>
-                                                                <option value="10">Grade 9</option>
-                                                                <option value="11">Grade 10</option>
-                                                                <option value="12">Grade 11</option>
-                                                                <option value="13">Grade 12</option>
-                                                                <option value="14">High School Graduate</option>
-                                                                <option>Not Specified</option>
-                                                            </select>
+                                            <div class="form-group col-md-12">
+                                                <div class="row">
 
-                                                            <select class="form-control" name='education' id="college1" style="display: none;">
-                                                                <option selected disabled>Level</option>
-                                                                <option value="15">1st year</option>
-                                                                <option value="16">2nd year</option>
-                                                                <option value="17">3rd year</option>
-                                                                <option value="18">4th year</option>      
-                                                                <option value="19">College Graduate</option>
-                                                                <option>Not Specified</option>
-                                                            </select>
+                                                    <div class="col-md-6">
+                                                        <select class="form-control" id="Education" name="Education">
+                                                            <option selected disabled>Educational Attainment</option>
+                                                            <option value="20">Elementary</option>
+                                                            <option value="21">Highschool</option>
+                                                            <option value="22">College</option>
+                                                            <option>Not Specified</option>
+                                                        </select>
+                                                    </div>
 
-                                                        </div>
+                                                    <div class="col-md-6">
+
+                                                        <select class="form-control" name='education' id="elementary1" style="display: none;">
+                                                            <option selected disabled>Level</option>
+                                                            <option value="1">Grade 1</option>
+                                                            <option value="2">Grade 2</option>
+                                                            <option value="3">Grade 3</option>
+                                                            <option value="4">Grade 4</option>
+                                                            <option value="5">Grade 5</option>
+                                                            <option value="6">Grade 6</option>
+                                                            <option value="7">Elementary Graduate</option>
+                                                            <option>Not Specified</option>
+                                                        </select>
+
+                                                        <select class="form-control" name='education' id="highschool1" style="display: none;">
+                                                            <option selected disabled>Level</option>
+                                                            <option value="8">Grade 7</option>
+                                                            <option value="9">Grade 8</option>
+                                                            <option value="10">Grade 9</option>
+                                                            <option value="11">Grade 10</option>
+                                                            <option value="12">Grade 11</option>
+                                                            <option value="13">Grade 12</option>
+                                                            <option value="14">High School Graduate</option>
+                                                            <option>Not Specified</option>
+                                                        </select>
+
+                                                        <select class="form-control" name='education' id="college1" style="display: none;">
+                                                            <option selected disabled>Level</option>
+                                                            <option value="15">1st year</option>
+                                                            <option value="16">2nd year</option>
+                                                            <option value="17">3rd year</option>
+                                                            <option value="18">4th year</option>      
+                                                            <option value="19">College Graduate</option>
+                                                            <option>Not Specified</option>
+                                                        </select>
 
                                                     </div>
-                                                </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name="Occupation" placeholder="Enter occupation">
                                                 </div>
+                                            </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name="net_income" placeholder="Enter Monthly Income ">
-                                                </div>
+                                            <div class="form-group col-md-6">
+                                                <input class="form-control" name="net_income" placeholder="Enter Monthly Income ">
+                                            </div>
+                                            
+                                        </div>
 
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" name='PhoneNum' placeholder="Enter phone number" id = "PhoneNum">
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <input class="form-control" id='Email' name='Email' placeholder="your@mail.com">
-                                                </div>
-                                    </div>
-
-                                    <div id = "home_address_div">
-                                        <div class="col-lg-6">
+                                        <div id = "home_address_div">
+                                            <div class="col-lg-6">
                                                 <h5><b>Home Address</b></h5>
+                                                <div class="form-group col-md-6">
+                                                    <select name='province' id='province' class="form-control">
+                                                        <option selected disabled>Province</option>
+                                                        <?php
+                                                        foreach ($provinces as $result) {
+                                                        ?>
+                                                        <option value="<?= $result['ProvinceID']; ?>"><?= $result['ProvinceName']; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <select name="city_mun" id="city_mun" class="form-control" style="display:none">
+                                                        <option selected disabled>City/Municipality</option>
+                                                        <?php
+                                                        foreach ($cities as $result) {
+                                                        ?>
+                                                        <option value="<?php echo($result['City_Mun_ID']); ?>" name="province-<?php echo($result['ProvinceID']); ?>"><?php echo($result['City_Mun_Name']); ?></option>
+                                                        <?php } ?>
+                                                    </select>  
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <select name="barangay1" id="barangay1" class="form-control" style="display:none">
+                                                        <option selected disabled>Barangay</option>
+                                                        <?php
+                                                        foreach ($barangays as $result) {
+                                                        ?>
+                                                        <option value="<?php echo($result['BarangayID']); ?>" name="city-<?php echo($result['City_CityID']) ?>"><?php echo($result['BarangayName']); ?></option>
+                                                        <?php } ?>
+                                                    </select> 
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <input id="specAdd" class="form-control" name="SpecificAddress" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id = "relocation_div">
+                                            <div class="col-lg-6">
+                                                <h5><b>Relocation Address</b></h5>
+                                                <div class="form-group col-md-6">
+                                                    <select class="form-control" name="EvacType" id="EvacType" >
+                                                        <option selected disabled>Relocation Type</option>
+                                                        <option value="1">Evacuation Center</option>
+                                                        <option value="2">Home-based</option>
+                                                    </select> 
+                                                </div> 
+
+                                                <div id="EvacName" class="form-group col-md-6" style="display:none">
+                                                    <select name="EvacName" class="form-control">
+                                                        <?php
+                                                        foreach ($evac_centers as $result) {
+                                                        ?>
+                                                        <option value="<?php echo($result['EvacuationCentersID']); ?>"><?= $result['EvacName']; ?></option>
+                                                        <?php } ?>
+                                                    </select> 
+                                                </div>
+
+                                                <div id = "home_based_div" style="display:none">
+
                                                     <div class="form-group col-md-6">
-                                                        <select name='province' id='province' class="form-control">
+                                                        <select name='province2' id='province2' class="form-control">
                                                             <option selected disabled>Province</option>
                                                             <?php
                                                             foreach ($provinces as $result) {
                                                             ?>
-                                                            <option value="<?= $result['ProvinceID']; ?>"><?= $result['ProvinceName']; ?></option>
+                                                            <option value="<?php echo($result['ProvinceID']); ?>"><?= $result['ProvinceName']; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group col-md-6">
-                                                        <select name="city_mun" id="city_mun" class="form-control" style="display:none">
+                                                        <select name="city_mun2" id="city_mun2" class="form-control" style="display:none">
                                                             <option selected disabled>City/Municipality</option>
                                                             <?php
                                                             foreach ($cities as $result) {
                                                             ?>
-                                                            <option value="<?php echo($result['City_Mun_ID']); ?>" name="province-<?php echo($result['ProvinceID']); ?>"><?php echo($result['City_Mun_Name']); ?></option>
+                                                            <option value="<?php echo($result['City_Mun_ID']); ?>" name="province2-<?php echo($result['ProvinceID']); ?>"><?php echo($result['City_Mun_Name']); ?></option>
                                                             <?php } ?>
                                                         </select>  
                                                     </div>
 
                                                     <div class="form-group col-md-6">
-                                                        <select name="barangay1" id="barangay1" class="form-control" style="display:none">
+                                                        <select name="barangay2" id="barangay2" class="form-control" style="display:none">
                                                             <option selected disabled>Barangay</option>
                                                             <?php
                                                             foreach ($barangays as $result) {
                                                             ?>
-                                                            <option value="<?php echo($result['BarangayID']); ?>" name="city-<?php echo($result['City_CityID']) ?>"><?php echo($result['BarangayName']); ?></option>
+                                                            <option value="<?php echo($result['BarangayID']); ?>" name="city2-<?php echo($result['City_CityID']) ?>"><?php echo($result['BarangayName']); ?></option>
                                                             <?php } ?>
                                                         </select> 
                                                     </div>
 
                                                     <div class="form-group col-md-6">
-                                                        <input id="specAdd" class="form-control" name="SpecificAddress" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
+                                                        <input id="specAdd2" class="form-control" name="SpecificAddress2" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
                                                     </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div id = "relocation_div">
-                                        <div class="col-lg-6">
-                                                <h5><b>Relocation Address</b></h5>
-                                                    <div class="form-group col-md-6">
-                                                        <select class="form-control" name="EvacType" id="EvacType" >
-                                                            <option selected disabled>Relocation Type</option>
-                                                            <option value="1">Evacuation Center</option>
-                                                            <option value="2">Home-based</option>
-                                                        </select> 
-                                                    </div> 
-
-                                                    <div id="EvacName" class="form-group col-md-6" style="display:none">
-                                                        <select name="EvacName" class="form-control">
-                                                            <?php
-                                                            foreach ($evac_centers as $result) {
-                                                            ?>
-                                                            <option value="<?php echo($result['EvacuationCentersID']); ?>"><?= $result['EvacName']; ?></option>
-                                                            <?php } ?>
-                                                        </select> 
-                                                    </div>
-
-                                                    <div id = "home_based_div" style="display:none">
-
-                                                        <div class="form-group col-md-6">
-                                                            <select name='province2' id='province2' class="form-control">
-                                                                <option selected disabled>Province</option>
-                                                                <?php
-                                                                foreach ($provinces as $result) {
-                                                                ?>
-                                                                <option value="<?php echo($result['ProvinceID']); ?>"><?= $result['ProvinceName']; ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <select name="city_mun2" id="city_mun2" class="form-control" style="display:none">
-                                                                <option selected disabled>City/Municipality</option>
-                                                                <?php
-                                                                foreach ($cities as $result) {
-                                                                ?>
-                                                                <option value="<?php echo($result['City_Mun_ID']); ?>" name="province2-<?php echo($result['ProvinceID']); ?>"><?php echo($result['City_Mun_Name']); ?></option>
-                                                                <?php } ?>
-                                                            </select>  
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <select name="barangay2" id="barangay2" class="form-control" style="display:none">
-                                                                <option selected disabled>Barangay</option>
-                                                                <?php
-                                                                foreach ($barangays as $result) {
-                                                                ?>
-                                                                <option value="<?php echo($result['BarangayID']); ?>" name="city2-<?php echo($result['City_CityID']) ?>"><?php echo($result['BarangayName']); ?></option>
-                                                                <?php } ?>
-                                                            </select> 
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <input id="specAdd2" class="form-control" name="SpecificAddress2" placeholder="Specific address (optional)" type="textbox" style="display:none"/>
-                                                        </div>
-
-                                                    </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- panel body -->
-                            <div class="panel-footer" style="background-color: #fff;">
-                                <input type="submit" class="btn btn-primary btn-fill" value="Submit" style="margin-left: 20px;">
-                            </div><!-- panel footer -->
-                        </form>
-                    </div>
+                                </div><!-- panel body -->
+                                <div class="panel-footer" style="background-color: #fff;">
+                                    <input type="submit" class="btn btn-primary btn-fill" value="Submit" style="margin-left: 20px;">
+                                </div><!-- panel footer -->
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,7 +307,7 @@ $evac_centers = getEvacuationCenters();
         <?php includeCommonJS(); ?>
 
     </body>
-    
+
     <script type='text/javascript'>
         $(document).ready(function(){
             $('#Education').change(function(){
@@ -357,5 +362,5 @@ $evac_centers = getEvacuationCenters();
             });
         });
     </script>
-    
+
 </html>

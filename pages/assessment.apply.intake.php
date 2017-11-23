@@ -51,7 +51,6 @@ $evacDetails = getEvacDetails($idpInfo[0]['EvacID'])
                                     echo '<p class="field-label"><b>Employment/ Occupation: </b>'.$result['Occupation'].'</p>';
                                 }
                                     ?>
-                                    <p class="field-label"><b>Type of Relocation: </b><?php echo(($evacDetails[0]['EvacType'] == 1) ? 'Government' : 'Home-based'); ?></p>
                                     <p class="field-label"><b>Address/Name of Evacuation Center: </b>
                                         <?php echo(($result['EvacID'] != '' ? getEvacDetails($result['EvacID']) : 'unspecified' )); ?>
                                     <p class="field-label"><b>Address prior to evacuation: </b>

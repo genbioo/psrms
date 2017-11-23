@@ -56,10 +56,6 @@ $agencies = getAgencies();
                                     <div class="form-group col-md-4">
                                         <input type="date" id="Bdate" name='Bdate' class="form-control" required>
                                     </div>
-
-                                    <div class="form-group col-md-4">
-                                        <input class="form-control" id="Age" placeholder="Age" type="text" min="0" value="Age is automatically calculated" disabled>
-                                    </div>
                                     
                                     <div class="form-group col-md-4">
                                         <select id="Gender" name='Gender' class="form-control" required>
@@ -85,7 +81,7 @@ $agencies = getAgencies();
                                     </div>
                                     
                                     <div class="form-group col-md-12">
-                                        <label class="text-warning"><sup>Please note: Passwords should be at least 7 characters with atleast one letter and atleast one number or one special character</sup></label>
+                                        <label class="text-warning"><sup>Please note: Passwords should be at least 7 characters with atleast one capital letter and atleast one number or one special character</sup></label>
                                     </div>
                                     
                                     <div class="form-group col-md-4">
