@@ -2,8 +2,8 @@
 class DBController {
     private $host = "localhost";
     private $user = "root";
-    private $password = "";
-    private $database = "psrms3";
+    private $password = "password";
+    private $database = "psrms";
     private $conn;
     private $stmt;
     public $update_status;
